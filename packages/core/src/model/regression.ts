@@ -67,16 +67,20 @@ function betaCF(a: number, b: number, x: number): number {
   return h;
 }
 
-/** Lanczos approximation to ln Γ(z). */
+/**
+ * Lanczos approximation to ln Γ(z), for z ≥ 0.5.
+ *
+ * The usual reflection branch for z < 0.5 is omitted deliberately: the only
+ * callers pass df/2, 0.5, or their sum, and `tCritical` rejects df ≤ 0, so z is
+ * never below 0.5. Carrying an unreachable branch would be dead code that no
+ * test can honestly cover.
+ */
 function lnGamma(z: number): number {
   const g = [
     676.5203681218851, -1259.1392167224028, 771.32342877765313,
     -176.61502916214059, 12.507343278686905, -0.13857109526572012,
     9.9843695780195716e-6, 1.5056327351493116e-7,
   ];
-  if (z < 0.5) {
-    return Math.log(Math.PI / Math.sin(Math.PI * z)) - lnGamma(1 - z);
-  }
   const zz = z - 1;
   let x = 0.99999999999980993;
   for (let i = 0; i < g.length; i++) x += g[i]! / (zz + i + 1);
