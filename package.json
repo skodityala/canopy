@@ -1,0 +1,32 @@
+{
+  "name": "canopy",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Satellite-measured schoolyard canopy and surface temperature, turned into a costed planting plan.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/pdf",
+    "packages/adapters/*",
+    "apps/web",
+    "tools/ingest"
+  ],
+  "scripts": {
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "typecheck": "tsc -b packages/core packages/pdf",
+    "build": "npm run typecheck && npm run build --workspace apps/web",
+    "dev": "npm run dev --workspace apps/web",
+    "preview": "npm run preview --workspace apps/web",
+    "report": "node --experimental-strip-types tools/ingest/src/report-cli.ts"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "typescript": "^5.7.3",
+    "vitest": "^3.2.4"
+  }
+}
