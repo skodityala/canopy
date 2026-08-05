@@ -1,0 +1,108 @@
+{
+  "region": "Maricopa County, AZ",
+  "currency": "USD",
+  "last_verified": "",
+  "_status": "AWAITING REAL CITATIONS — see docs/DATA.md §Cost citations",
+  "_why_empty": "Every figure below has low/high set to 0 and empty source fields. Canopy's cost module treats any line whose source_name / source_url / source_retrieved is missing as UNSOURCED, excludes it from the total, and refuses to print a headline cost (hasUnsourcedLines). That is deliberate: an invented dollar figure is worse than no figure, so the schema ships complete and the numbers ship empty until real sources are resolved. Fill low/high/source_* per item and the report begins printing costs with no code change.",
+  "_source_priority": [
+    "1. School district facilities bid tabulation (strongest — literally what a school pays)",
+    "2. City or county urban forestry program price sheet / cost-share schedule",
+    "3. State extension service urban forestry cost guide",
+    "4. i-Tree project documentation planting and maintenance assumptions"
+  ],
+  "items": [
+    {
+      "key": "tree_large_shade_installed",
+      "label": "Large shade tree, 2\" caliper, installed",
+      "unit": "each",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    },
+    {
+      "key": "tree_medium_shade_installed",
+      "label": "Medium shade tree, 2\" caliper, installed",
+      "unit": "each",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    },
+    {
+      "key": "tree_small_ornamental_installed",
+      "label": "Small ornamental tree, 1.5\" caliper, installed",
+      "unit": "each",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    },
+    {
+      "key": "establishment_watering_3yr",
+      "label": "Establishment watering, 3 years",
+      "unit": "per tree",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    },
+    {
+      "key": "mulch_and_basin",
+      "label": "Mulch ring and watering basin",
+      "unit": "per tree",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    },
+    {
+      "key": "root_barrier_near_paving",
+      "label": "Root barrier where planting is within 3 m of paving",
+      "unit": "per tree",
+      "low": 0,
+      "high": 0,
+      "source_name": "",
+      "source_url": "",
+      "source_retrieved": ""
+    }
+  ],
+  "classCostKeys": {
+    "large_shade": "tree_large_shade_installed",
+    "medium_shade": "tree_medium_shade_installed",
+    "small_ornamental": "tree_small_ornamental_installed"
+  },
+  "perTreeItemKeys": ["establishment_watering_3yr", "mulch_and_basin"],
+  "plantingClasses": [
+    {
+      "key": "large_shade",
+      "label": "Large shade",
+      "crownRadiusM": 7.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 7–9 m",
+      "radiusStatus": "unverified"
+    },
+    {
+      "key": "medium_shade",
+      "label": "Medium shade",
+      "crownRadiusM": 5.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 5–6 m",
+      "radiusStatus": "unverified"
+    },
+    {
+      "key": "small_ornamental",
+      "label": "Small ornamental",
+      "crownRadiusM": 3.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 3–4 m",
+      "radiusStatus": "unverified"
+    }
+  ],
+  "_radius_note": "Crown radii are nominal planting-class figures carried from the build spec, NOT a cited species list, and are marked unverified so the PDF labels them as such. They are populated (unlike costs) because zeroing them would make the canopy geometry silently produce no shade at all — a wrong number rather than an absent one. Replace with a municipal or extension species list and set radiusStatus to 'cited'."
+}

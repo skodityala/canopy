@@ -74,20 +74,47 @@ export interface DerivedYard {
 }
 
 /**
+ * Target recess-yard area, m².
+ *
+ * A recess yard does not scale with the parcel: a 5-hectare campus and a
+ * 2-hectare campus both give the children roughly a soccer-field-plus-hardcourt
+ * of open play space, and the rest goes to buildings, bus loop, staff parking
+ * and frontage. So the yard is derived toward an ABSOLUTE area, then capped as a
+ * share of the parcel for small sites.
+ *
+ * This matters for more than realism. Yard area is the denominator of the canopy
+ * percentage and therefore of ΔNDVI_yard, which drives ΔT — so getting it wrong
+ * by a factor of three moves the headline temperature number by the same factor.
+ * The figure is chosen to match a typical elementary recess yard, NOT chosen to
+ * make ΔT land anywhere in particular.
+ */
+export const TARGET_YARD_AREA_M2 = 9000;
+
+/** Never take more than this share of the parcel, for small campuses. */
+export const MAX_PARCEL_SHARE = 0.45;
+
+/**
  * Derive the recess-yard polygon from a real parcel ring.
  *
- * @param areaFraction share of the parcel treated as open recess yard
+ * @param targetAreaM2 absolute recess-yard area to aim for
  */
-export function deriveRecessYard(parcel: Ring, areaFraction = 0.55): DerivedYard {
-  const factor = insetFactorForAreaFraction(areaFraction);
+export function deriveRecessYard(
+  parcel: Ring,
+  targetAreaM2 = TARGET_YARD_AREA_M2,
+): DerivedYard {
+  const parcelAreaM2 = ringAreaM2(parcel);
+  const fraction = Math.min(MAX_PARCEL_SHARE, targetAreaM2 / Math.max(1, parcelAreaM2));
+  const factor = insetFactorForAreaFraction(fraction);
   const ring = insetRing(parcel, factor);
   return {
     ring,
     areaM2: Math.round(ringAreaM2(ring)),
-    parcelAreaM2: Math.round(ringAreaM2(parcel)),
+    parcelAreaM2: Math.round(parcelAreaM2),
     method:
-      `Recess yard derived as a ${(areaFraction * 100).toFixed(0)}% centroid inset of the ` +
-      `real OSM parcel polygon (no building footprints available offline). ` +
-      `The parcel boundary is real; the yard subset is an approximation.`,
+      `Recess yard derived as a centroid inset of the real OSM parcel polygon, ` +
+      `targeting ${targetAreaM2.toLocaleString('en-US')} m² of open play space ` +
+      `(${(fraction * 100).toFixed(0)}% of this ${Math.round(parcelAreaM2).toLocaleString('en-US')} m² parcel). ` +
+      `No building footprints are available offline, so the parcel boundary is real ` +
+      `and the yard subset is an approximation.`,
   };
 }

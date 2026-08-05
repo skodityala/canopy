@@ -1,0 +1,17 @@
+{
+  "name": "@canopy/cost-local",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "LOCAL cost model adapter — cited regional JSON, offline.",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./data/*": "./data/*"
+  },
+  "dependencies": {
+    "@canopy/core": "*"
+  }
+}

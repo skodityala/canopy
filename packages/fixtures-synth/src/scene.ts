@@ -181,22 +181,43 @@ export function generateScene(spec: SceneSpec, inYard: YardTest): SceneOut {
   // physically consistent rather than independently random.
   const ndviGrid: number[] = new Array(fine * fine).fill(0);
 
+  // Pass 1 — locate the yard's fine pixels and pick the crown-field cutoff that
+  // realises the requested canopy fraction.
+  //
+  // A raw threshold on the crown field does NOT work: summed value noise is
+  // bell-shaped around 0.5, so `crown < 0.09` almost never fires and an arid
+  // yard comes back at 0% canopy while a shaded one lands near 50% by accident.
+  // Taking the cutoff at the target QUANTILE of the field's own values inside
+  // this yard makes the realised fraction match the target by construction, for
+  // any target. Same technique as the cloud placement below.
+  const yardCrown = new Map<number, number>();
+  for (let row = 0; row < fine; row++) {
+    for (let col = 0; col < fine; col++) {
+      const x = spec.originX + (col + 0.5) * 10;
+      const y = spec.originY - (row + 0.5) * 10;
+      if (inYard(x, y)) {
+        yardCrown.set(row * fine + col, crownField.at(col / fine, row / fine));
+      }
+    }
+  }
+  const sortedCrown = [...yardCrown.values()].sort((a, b) => a - b);
+  const nCanopy = Math.round(sortedCrown.length * spec.yardCanopyTarget);
+  const crownCutoff =
+    nCanopy <= 0 ? -1 : sortedCrown[Math.min(nCanopy - 1, sortedCrown.length - 1)]!;
+
   for (let row = 0; row < fine; row++) {
     for (let col = 0; col < fine; col++) {
       const u = col / fine;
       const v = row / fine;
-      const x = spec.originX + (col + 0.5) * 10;
-      const y = spec.originY - (row + 0.5) * 10;
+      const i = row * fine + col;
 
       let ndvi = spec.ndviMean + (ndviField.at(u, v) - 0.5) * 2 * spec.ndviSpread;
 
-      // Inside the yard, place crowns by an independent field so the canopy
-      // fraction lands near the target instead of saturating.
-      if (inYard(x, y)) {
-        const crown = crownField.at(u, v);
-        if (crown < spec.yardCanopyTarget) {
+      const crown = yardCrown.get(i);
+      if (crown !== undefined) {
+        if (crown <= crownCutoff) {
           // A crown pixel: comfortably above any plausible canopy threshold.
-          ndvi = 0.70 + (crown / Math.max(1e-6, spec.yardCanopyTarget)) * 0.12;
+          ndvi = 0.7 + (crown / Math.max(1e-6, crownCutoff)) * 0.12;
         } else {
           // Open yard: hot, bare surface — asphalt, decomposed granite, dirt.
           ndvi = Math.min(0.17, Math.max(0.02, ndvi * 0.55));
@@ -204,13 +225,13 @@ export function generateScene(spec: SceneSpec, inYard: YardTest): SceneOut {
       }
 
       ndvi = Math.min(0.92, Math.max(-0.05, ndvi));
-      ndviGrid[row * fine + col] = ndvi;
+      ndviGrid[i] = ndvi;
 
       // Brightness varies independently of NDVI, as it does in a real scene.
       const brightness = 0.12 + brightField.at(u, v) * 0.16;
       const [n, r] = reflectanceForNdvi(ndvi, brightness);
-      nir[row * fine + col] = +n.toFixed(6);
-      red[row * fine + col] = +r.toFixed(6);
+      nir[i] = +n.toFixed(6);
+      red[i] = +r.toFixed(6);
     }
   }
 
@@ -266,26 +287,49 @@ export function generateScene(spec: SceneSpec, inYard: YardTest): SceneOut {
 
   // Cloud placement: a contiguous blob over the yard, so the masked fraction is
   // realistic rather than salt-and-pepper.
+  //
+  // The blob is sized in METRES around the yard centroid, not as a quantile of
+  // the yard's own thermal cells. A 9,000 m² recess yard intersects only one or
+  // two 100 m cells, so a quantile approach rounds to zero cells and silently
+  // produces no cloud at all — which would make the failure fixture stop
+  // failing. Real cloud is hundreds of metres across regardless of yard size.
   if (spec.cloudFraction > 0) {
     const cloudField = fractalField(mulberry32(spec.seed ^ 0x5eed), [2, 5]);
-    // Choose a threshold that yields approximately the requested coverage over
-    // the yard's own cells.
-    const yardCells: Array<{ idx: number; v: number }> = [];
+
+    // Yard centroid on the thermal grid.
+    let sx = 0;
+    let sy = 0;
+    let count = 0;
     for (let row = 0; row < th; row++) {
       for (let col = 0; col < th; col++) {
         const x = spec.originX + (col + 0.5) * 100;
         const y = spec.originY - (row + 0.5) * 100;
         if (inYard(x, y)) {
-          yardCells.push({ idx: row * th + col, v: cloudField.at(col / th, row / th) });
+          sx += x;
+          sy += y;
+          count++;
         }
       }
     }
-    yardCells.sort((a, b) => a.v - b.v);
-    const nCloud = Math.round(yardCells.length * spec.cloudFraction);
-    const cut = nCloud > 0 ? yardCells[Math.min(nCloud - 1, yardCells.length - 1)]!.v : -1;
+    // Fall back to the grid centre if the yard misses every cell centre.
+    const cx = count > 0 ? sx / count : spec.originX + (th * 100) / 2;
+    const cy = count > 0 ? sy / count : spec.originY - (th * 100) / 2;
+
+    // Cloud radius scaled by the requested fraction. Deliberately sized to
+    // occlude PART of the yard: a partial mask is far more convincing on camera
+    // than a total blackout, and it exercises the coverage ratio rather than
+    // just the empty case. Offset from the centroid for the same reason.
+    const radiusM = 210 * Math.sqrt(Math.max(0.05, spec.cloudFraction));
+    const offsetM = radiusM * 0.85;
+
     for (let row = 0; row < th; row++) {
       for (let col = 0; col < th; col++) {
-        if (cloudField.at(col / th, row / th) <= cut) {
+        const x = spec.originX + (col + 0.5) * 100;
+        const y = spec.originY - (row + 0.5) * 100;
+        const d = Math.hypot(x - (cx + offsetM), y - (cy + offsetM * 0.4));
+        // Ragged edge from the noise field, so the mask is not a perfect disc.
+        const edge = 0.75 + cloudField.at(col / th, row / th) * 0.5;
+        if (d <= radiusM * edge) {
           qa[row * th + col] = QA_CLOUD | QA_DILATED;
         }
       }

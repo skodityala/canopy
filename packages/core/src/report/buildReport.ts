@@ -24,6 +24,7 @@ import {
   rasterisePolygon,
 } from '../raster/mask.js';
 import { summarise, valuesIn } from '../raster/stats.js';
+import { yardCellMask } from '../raster/yardCells.js';
 import { olsFit } from '../model/regression.js';
 import { methodLabel, predictDeltaLST } from '../model/prediction.js';
 import {
@@ -108,7 +109,9 @@ export function analyseScene(scene: SchoolScene): SceneAnalysis {
 
   const usable = cloudMaskFromQA(scene.qa);
   const yardFine = rasterisePolygon(meta.yard, nd);
-  const yardThermal = rasterisePolygon(meta.yard, scene.thermalDn);
+  // Thermal cells are 100 m and a recess yard is ~95 m across, so cells are
+  // selected by AREA OVERLAP, not centre containment. See raster/yardCells.ts.
+  const yardThermal = yardCellMask(meta.yard, scene.thermalDn);
 
   const yardThermalPixels = countMask(yardThermal);
   const yardUsable = intersectMasks(yardThermal, usable);

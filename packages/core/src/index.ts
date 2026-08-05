@@ -8,6 +8,7 @@ export * from './raster/lst.js';
 export * from './raster/resample.js';
 export * from './raster/mask.js';
 export * from './raster/stats.js';
+export * from './raster/yardCells.js';
 
 export * from './geo/utm.js';
 
@@ -15,6 +16,7 @@ export * from './model/regression.js';
 export * from './model/canopy.js';
 export * from './model/prediction.js';
 export * from './model/cost.js';
+export * from './model/suggestPlan.js';
 
 export * from './report/buildReport.js';
 
