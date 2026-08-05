@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="595" height="842" viewBox="0 0 595 842" role="img" aria-label="Canopy planting report">
+<rect width="595" height="842" fill="#12100f"/>
+<text x="44" y="46" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="13" fill="#4ba36a" font-weight="600">CANOPY</text>
+<text x="551" y="46" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e" text-anchor="end">Generated 2026-08-05</text>
+<text x="44" y="66" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="19" fill="#f2ede9" font-weight="600">Schoolyard shade plan</text>
+<text x="44" y="84" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="10" fill="#a89f99">Cactus Wren Elementary School · Phoenix, AZ</text>
+<text x="44" y="96" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#7d746e" style="font-variant-numeric:tabular-nums">Yard area 9,000 m²</text>
+<rect x="44" y="112" width="507" height="20" fill="#3a2a12" stroke="#d99a2b" stroke-width="0.75"/>
+<text x="52" y="125" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#d99a2b" font-weight="600">SYNTHETIC IMAGERY</text>
+<text x="162" y="125" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#a89f99">Pixel values are generated, not observed. Yard geometry is real OSM data.</text>
+<text x="44" y="142" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#7d746e" font-weight="600">CANOPY COVER</text>
+<line x1="44" y1="148" x2="551" y2="148" stroke="#332e2b" stroke-width="0.75"/>
+<text x="44" y="172" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#a89f99">before</text>
+<rect x="84" y="164" width="415" height="11" fill="#262220"/>
+<rect x="84" y="164" width="93.38" height="11" fill="#a89f99"/>
+<text x="507" y="172.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="9" fill="#f2ede9" font-weight="600" style="font-variant-numeric:tabular-nums">9.0%</text>
+<text x="44" y="189" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#a89f99">after</text>
+<rect x="84" y="181" width="415" height="11" fill="#262220"/>
+<rect x="84" y="181" width="251.04" height="11" fill="#4ba36a"/>
+<text x="507" y="189.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="9" fill="#f2ede9" font-weight="600" style="font-variant-numeric:tabular-nums">24.2%</text>
+<text x="44" y="202" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">12 trees · crown union 1,503 m² after 7.8% geometric overlap · effective new shade 1,368 m²</text>
+<text x="44" y="212" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Canopy classified at NDVI ≥ 0.66 · crown radii projected at ~15-year maturity</text>
+<text x="44" y="232" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#7d746e" font-weight="600">SURFACE TEMPERATURE</text>
+<line x1="44" y1="238" x2="551" y2="238" stroke="#332e2b" stroke-width="0.75"/>
+<text x="44" y="254" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">MEASURED, RECESS YARD</text>
+<text x="44" y="277.75" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="25" fill="#ed6925" font-weight="600" style="font-variant-numeric:tabular-nums">43.9</text>
+<text x="110.4" y="277.75" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="11" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="44" y="288.75" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">LANDSAT 9 B10 thermal, 2025-07-29, 10:42 local overpass · mean of 3</text>
+<text x="44" y="297.25" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">thermal pixels at 100 m native · peak afternoon yard temperature is</text>
+<text x="44" y="305.75" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">higher than at overpass.</text>
+<text x="44" y="324.25" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">PREDICTED CHANGE AFTER PLANTING</text>
+<text x="44" y="348" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="25" fill="#4ba36a" font-weight="600" style="font-variant-numeric:tabular-nums">-1.7</text>
+<text x="110.4" y="348" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="11" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="44" y="359" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">OLS LST ~ NDVI · R² = 0.73 · n = 400 px · associated change at ~15-year crown maturity</text>
+<text x="44" y="369.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">95% CI  -1.8 … -1.6 °C</text>
+<text x="44" y="381.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Yard mean would move 43.9 °C → 42.2 °C (associated with the modelled canopy gain, not a causal claim).</text>
+<text x="44" y="401.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#7d746e" font-weight="600">COSTED PLAN</text>
+<line x1="44" y1="407.5" x2="551" y2="407.5" stroke="#332e2b" stroke-width="0.75"/>
+<text x="44" y="423.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">ITEM</text>
+<text x="307.64" y="423.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">QTY</text>
+<text x="368.48" y="423.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">UNIT RANGE</text>
+<text x="551" y="423.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600" text-anchor="end">TOTAL</text>
+<line x1="44" y1="428.5" x2="551" y2="428.5" stroke="#332e2b" stroke-width="0.5"/>
+<text x="44" y="439.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9">Large shade tree, 2&quot; caliper, installed</text>
+<text x="307.64" y="439.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">6</text>
+<text x="368.48" y="439.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" style="font-variant-numeric:tabular-nums">no source</text>
+<text x="551" y="439.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="52" y="450.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">This line has no resolvable source, so it is excluded from the total.</text>
+<text x="44" y="462.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9">Medium shade tree, 2&quot; caliper, installed</text>
+<text x="307.64" y="462.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">6</text>
+<text x="368.48" y="462.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" style="font-variant-numeric:tabular-nums">no source</text>
+<text x="551" y="462.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="52" y="473.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">This line has no resolvable source, so it is excluded from the total.</text>
+<text x="44" y="485.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9">Establishment watering, 3 years</text>
+<text x="307.64" y="485.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">12</text>
+<text x="368.48" y="485.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" style="font-variant-numeric:tabular-nums">no source</text>
+<text x="551" y="485.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="52" y="496.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">This line has no resolvable source, so it is excluded from the total.</text>
+<text x="44" y="508.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9">Mulch ring and watering basin</text>
+<text x="307.64" y="508.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">12</text>
+<text x="368.48" y="508.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" style="font-variant-numeric:tabular-nums">no source</text>
+<text x="551" y="508.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="52" y="519.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">This line has no resolvable source, so it is excluded from the total.</text>
+<line x1="44" y1="533.5" x2="551" y2="533.5" stroke="#332e2b" stroke-width="0.5"/>
+<rect x="44" y="537.5" width="507" height="30" fill="#262220" stroke="#d99a2b" stroke-width="0.75"/>
+<text x="54" y="549.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#d99a2b" font-weight="600">TOTAL WITHHELD</text>
+<text x="54" y="560.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#a89f99">One or more line items lack a resolvable source, so no headline cost is printed.</text>
+<text x="44" y="587.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#7d746e" font-weight="600">LIMITATIONS</text>
+<line x1="44" y1="593.5" x2="551" y2="593.5" stroke="#332e2b" stroke-width="0.75"/>
+<circle cx="46" cy="607" r="1.4" fill="#7d746e"/>
+<text x="53" y="609.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">Thermal pixels are 100 m native (resampled to 30 m in the delivered product); this yard is covered by 3 valid thermal pixel(s), so</text>
+<text x="53" y="618" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">surface temperature is a yard-scale average and never a per-tree figure.</text>
+<circle cx="46" cy="626.5" r="1.4" fill="#7d746e"/>
+<text x="53" y="629" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">Single-date imagery: one cloud-free scene is one weather day, not a climate. Landsat overpass was 10:42 local — peak afternoon yard</text>
+<text x="53" y="637.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">temperature is higher.</text>
+<circle cx="46" cy="646" r="1.4" fill="#7d746e"/>
+<text x="53" y="648.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">Canopy is classified by an NDVI threshold, which can catch irrigated turf as well as tree crowns. The threshold is hand-validated per</text>
+<text x="53" y="657" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">site and stated above.</text>
+<circle cx="46" cy="665.5" r="1.4" fill="#7d746e"/>
+<text x="53" y="668" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">Predicted ΔT is an extrapolation from a correlational fit on this scene, not a physical simulation. It is reported as an interval and</text>
+<text x="53" y="676.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">phrased as an association.</text>
+<circle cx="46" cy="685" r="1.4" fill="#7d746e"/>
+<text x="53" y="687.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">Crown radii are projections at the stated maturity horizon; a newly planted tree does not shade at its mature radius on planting day.</text>
+<line x1="44" y1="702.5" x2="551" y2="702.5" stroke="#332e2b" stroke-width="0.5"/>
+<text x="44" y="712.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="6.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">NDVI = (NIR − RED)/(NIR + RED)        L_λ = M_L·Q_cal + A_L</text>
+<text x="44" y="720.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="6.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">BT = K₂/ln(K₁/L_λ + 1)                P_v = ((NDVI−0.2)/0.3)²</text>
+<text x="44" y="728.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="6.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">ε = 0.004·P_v + 0.986                 LST = BT/(1 + (λ·BT/ρ)·ln ε)</text>
+<text x="44" y="736.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="6.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">ΔT = β₁ · ΔNDVI_yard                  β₁ from local OLS fit</text>
+<text x="297.5" y="826" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e" text-anchor="middle">SYNTH_S2_CACTUS_WREN · SYNTH_LC09_CACTUS_WREN · full method in docs/METHOD.md</text>
+</svg>

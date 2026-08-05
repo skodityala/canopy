@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="595" height="842" viewBox="0 0 595 842" role="img" aria-label="Canopy planting report">
+<rect width="595" height="842" fill="#12100f"/>
+<text x="32" y="46" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="9" fill="#7d746e" font-weight="600">WHEN THE DATA CANNOT SUPPORT THE CLAIM</text>
+<text x="32" y="72" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="16" fill="#f2ede9" font-weight="600">Dos Rios Elementary School</text>
+<text x="32" y="94" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#a89f99">MEASURED SURFACE TEMPERATURE</text>
+<text x="32" y="118" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="30" fill="#f2ede9" font-weight="600" style="font-variant-numeric:tabular-nums">42.6</text>
+<text x="94" y="118" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="13" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="32" y="134" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">mean of 1 cloud-free thermal pixel(s) · 50% of the yard usable</text>
+<rect x="32" y="164" width="531" height="84" fill="#241a0c" stroke="#d99a2b" stroke-width="1"/>
+<text x="46" y="186" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#d99a2b" font-weight="600">PREDICTED TEMPERATURE CHANGE</text>
+<text x="46" y="210" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="22" fill="#d99a2b" font-weight="600" style="font-variant-numeric:tabular-nums">WITHHELD</text>
+<text x="32" y="266" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">Only 50.0% of this yard has cloud-free pixels (80% required). No</text>
+<text x="32" y="278" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">temperature change is reported for this site.</text>
+<text x="32" y="298" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#7d746e">A number a judge can break is worse than no number.</text>
+</svg>
