@@ -10,7 +10,8 @@
   },
   "workspaces": [
     "packages/core",
-    "packages/pdf",
+    "packages/fixtures-synth",
+    "packages/render",
     "packages/adapters/*",
     "apps/web",
     "tools/ingest"
@@ -18,11 +19,12 @@
   "scripts": {
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "typecheck": "tsc -b packages/core packages/pdf",
+    "typecheck": "tsc -b packages/core packages/render",
     "build": "npm run typecheck && npm run build --workspace apps/web",
     "dev": "npm run dev --workspace apps/web",
     "preview": "npm run preview --workspace apps/web",
-    "report": "node --experimental-strip-types tools/ingest/src/report-cli.ts"
+    "fixtures": "vite-node tools/ingest/src/write-fixtures.ts",
+    "assets": "vite-node tools/ingest/src/write-assets.ts"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^3.2.4",

@@ -1,0 +1,13 @@
+{
+  "name": "@canopy/ingest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "description": "Build-time fixture pipeline. The only package permitted to touch the network or the disk.",
+  "dependencies": {
+    "@canopy/core": "*",
+    "@canopy/fixtures-synth": "*",
+    "@canopy/render": "*"
+  }
+}
