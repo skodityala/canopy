@@ -14,12 +14,15 @@ export * from './geo/utm.js';
 
 export * from './model/regression.js';
 export * from './model/spatialcv.js';
+export * from './model/conformal.js';
+export * from './model/submodular.js';
 export * from './model/canopy.js';
 export * from './model/prediction.js';
 export * from './model/cost.js';
 export * from './model/suggestPlan.js';
 
 export * from './report/buildReport.js';
+export * from './report/ledger.js';
 
 export type { ImageryPort, SchoolMeta, SchoolScene } from './ports/ImageryPort.js';
 export type { BasemapPort } from './ports/BasemapPort.js';
