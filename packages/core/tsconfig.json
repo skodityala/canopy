@@ -1,9 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": ".",
-    "composite": true
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "lib": ["ES2022"],
+    "types": []
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "_note": "types: [] and lib without DOM are deliberate. packages/core is pure computation — zero I/O, zero DOM — and this config makes that a COMPILE ERROR rather than a convention. If someone imports node:fs or touches document here, the build fails. Tests and tools are typechecked by the root tsconfig.json, which does have node types."
 }

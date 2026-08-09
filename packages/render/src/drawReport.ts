@@ -44,13 +44,13 @@ function figure(
   opts: {
     label: string;
     value: string;
-    unit?: string;
+    unit?: string | undefined;
     method: string;
-    x?: number;
-    width?: number;
-    size?: number;
-    color?: string;
-    caveat?: string;
+    x?: number | undefined;
+    width?: number | undefined;
+    size?: number | undefined;
+    color?: string | undefined;
+    caveat?: string | undefined;
   },
 ): void {
   const x = opts.x ?? X;

@@ -19,7 +19,7 @@
   "scripts": {
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "typecheck": "tsc -b packages/core packages/render",
+    "typecheck": "tsc -p tsconfig.json && tsc -p apps/web/tsconfig.json",
     "build": "npm run typecheck && npm run build --workspace apps/web",
     "dev": "npm run dev --workspace apps/web",
     "preview": "npm run preview --workspace apps/web",
@@ -27,6 +27,7 @@
     "assets": "vite-node tools/ingest/src/write-assets.ts"
   },
   "devDependencies": {
+    "@types/node": "^22.20.1",
     "@vitest/coverage-v8": "^3.2.4",
     "typescript": "^5.7.3",
     "vitest": "^3.2.4"

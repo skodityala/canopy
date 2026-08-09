@@ -93,7 +93,7 @@ function toPolygon(y: YardJson, slug: string): Polygon {
   if (!Array.isArray(ring) || ring.length < 3) {
     throw new CanopyFailure({
       code: 'FIXTURE_MALFORMED',
-      path: `fixtures/schools/${slug}/yard.geojson`,
+      path: `fixtures/schools/${slug}/yard.json`,
       detail: 'projected yard ring has fewer than three vertices',
     });
   }

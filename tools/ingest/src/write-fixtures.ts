@@ -5,7 +5,7 @@
  *
  * Emits, per school, under fixtures/schools/<slug>/:
  *   meta.json      provenance, grid geometry, MTL constants, ground truth
- *   yard.geojson   the real OSM polygon, in both WGS84 and UTM
+ *   yard.json      the real OSM polygon, in both WGS84 and UTM
  *   red.json       Sentinel-2 B4 reflectance, 10 m
  *   nir.json       Sentinel-2 B8 reflectance, 10 m
  *   thermal.json   Landsat B10 digital numbers, 100 m
@@ -39,7 +39,7 @@ async function main(): Promise<void> {
     await writeFile(join(dir, 'meta.json'), stableJson(meta));
 
     await writeFile(
-      join(dir, 'yard.geojson'),
+      join(dir, 'yard.json'),
       stableJson({
         type: 'Feature',
         properties: {

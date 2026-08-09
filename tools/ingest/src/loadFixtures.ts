@@ -29,7 +29,7 @@ export async function loadFixtureEntry(slug: string): Promise<FixtureEntry> {
   const dir = join(FIXTURE_DIR, slug);
   const [meta, yard, red, nir, thermal, qa] = await Promise.all([
     readJson<FixtureEntry['meta']>(join(dir, 'meta.json')),
-    readJson<FixtureEntry['yard']>(join(dir, 'yard.geojson')),
+    readJson<FixtureEntry['yard']>(join(dir, 'yard.json')),
     readJson<FixtureEntry['red']>(join(dir, 'red.json')),
     readJson<FixtureEntry['nir']>(join(dir, 'nir.json')),
     readJson<FixtureEntry['thermal']>(join(dir, 'thermal.json')),

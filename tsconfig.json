@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "types": ["node"],
+    "lib": ["ES2022"],
+    "resolveJsonModule": true,
+    "paths": {
+      "@canopy/core": ["./packages/core/src/index.ts"],
+      "@canopy/render": ["./packages/render/src/index.ts"],
+      "@canopy/fixtures-synth": ["./packages/fixtures-synth/src/index.ts"],
+      "@canopy/imagery-fixture": ["./packages/adapters/imagery-fixture/src/index.ts"],
+      "@canopy/cost-local": ["./packages/adapters/cost-local/src/index.ts"],
+      "@canopy/cost-local/data/*": ["./packages/adapters/cost-local/data/*"]
+    },
+    "baseUrl": "."
+  },
+  "include": [
+    "packages/*/src/**/*.ts",
+    "packages/*/test/**/*.ts",
+    "packages/adapters/*/src/**/*.ts",
+    "tools/ingest/src/**/*.ts"
+  ],
+  "exclude": ["node_modules", "**/dist", "apps/web"]
+}
