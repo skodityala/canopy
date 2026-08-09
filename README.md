@@ -1,9 +1,9 @@
 # 🌳 Canopy
 
-**▶ Live demo: `<DEPLOY_URL>`**
+**▶ Live demo: <https://dist-dsvenua31-siddarthaks-projects.vercel.app>**
 
 [![ci](https://github.com/skodityala/canopy/actions/workflows/ci.yml/badge.svg)](https://github.com/skodityala/canopy/actions/workflows/ci.yml)
-![tests](https://img.shields.io/badge/tests-207%20passing-brightgreen)
+![tests](https://img.shields.io/badge/tests-237%20passing-brightgreen)
 ![coverage](https://img.shields.io/badge/raster%20%2B%20model-100%25%20lines-brightgreen)
 ![deps](https://img.shields.io/badge/runtime%20deps-0-blue)
 ![offline](https://img.shields.io/badge/runs-fully%20offline-blue)
