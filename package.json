@@ -25,7 +25,10 @@
     "preview": "npm run preview --workspace apps/web",
     "fixtures": "vite-node tools/ingest/src/write-fixtures.ts",
     "assets": "CANOPY_WRITE=1 vite-node tools/ingest/src/write-assets.ts",
-    "images": "CANOPY_WRITE=1 vite-node tools/ingest/src/write-images.ts"
+    "images": "CANOPY_WRITE=1 vite-node tools/ingest/src/write-images.ts",
+    "clean": "bash tools/scripts/clean.sh",
+    "pretest": "bash tools/scripts/clean.sh",
+    "prebuild": "bash tools/scripts/clean.sh"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",

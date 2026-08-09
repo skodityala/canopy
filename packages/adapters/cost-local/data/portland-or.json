@@ -1,0 +1,75 @@
+{
+  "region": "Portland, OR",
+  "currency": "USD",
+  "last_verified": "2026-08-07",
+  "_status": "CITED — every printable line resolves to the City of Portland Title 11 Trees Fee Schedule.",
+  "_basis": "The City of Portland publishes a 'Planting and Establishment Fee in Lieu' — the amount the City charges when a required tree is NOT planted on site. It is therefore the City's own published valuation of what it costs to plant and establish one tree, which is exactly the quantity this cost model needs. Two figures are published and both are used here as the ends of a range, with no interpolation and no invented middle: $712.00 per on-site tree (a flat per-tree figure, used verbatim as the LOW end for every class) and $472.00 per dbh inch (used for the HIGH end: $472.00 x 2 in caliper = $944.00 for the 2-inch classes; the 1.5-inch ornamental class computes to $708.00, which is BELOW the flat $712.00 per-tree figure, so its range collapses to 712-712 rather than being pushed below a figure the schedule already states).",
+  "_limitation_caliper_vs_dbh": "Nursery caliper is measured 6 inches above ground; dbh is measured at 4.5 ft. They are not the same measurement. For young 2-inch stock they are close, but the high end of each range is therefore an approximation of the schedule's per-dbh-inch basis, not a figure the schedule states for caliper. This is stated rather than smoothed over.",
+  "_limitation_establishment_bundled": "The cited fee is 'Planting AND Establishment'. Establishment watering and mulch are already inside it. Adding separate per-tree establishment lines would double-count, so perTreeItemKeys is empty for this region. That is why this file prints a total and maricopa-az.json does not.",
+  "_source_priority_tier": "Tier 2 — city urban forestry program price sheet.",
+  "items": [
+    {
+      "key": "tree_large_shade_installed",
+      "label": "Large shade tree, 2\" caliper, planted and established",
+      "unit": "each",
+      "low": 712,
+      "high": 944,
+      "source_name": "City of Portland, Portland Parks & Recreation Urban Forestry — Title 11, Trees Fee Schedule, effective July 1, 2025 (Planting and Establishment Fee in Lieu: $712.00 per on-site tree; $472.00 per dbh inch)",
+      "source_url": "https://www.portland.gov/trees/documents/fy-2025-26-trees-fee-schedule/download",
+      "source_retrieved": "2026-08-07"
+    },
+    {
+      "key": "tree_medium_shade_installed",
+      "label": "Medium shade tree, 2\" caliper, planted and established",
+      "unit": "each",
+      "low": 712,
+      "high": 944,
+      "source_name": "City of Portland, Portland Parks & Recreation Urban Forestry — Title 11, Trees Fee Schedule, effective July 1, 2025 (Planting and Establishment Fee in Lieu: $712.00 per on-site tree; $472.00 per dbh inch)",
+      "source_url": "https://www.portland.gov/trees/documents/fy-2025-26-trees-fee-schedule/download",
+      "source_retrieved": "2026-08-07"
+    },
+    {
+      "key": "tree_small_ornamental_installed",
+      "label": "Small ornamental tree, 1.5\" caliper, planted and established",
+      "unit": "each",
+      "low": 712,
+      "high": 712,
+      "source_name": "City of Portland, Portland Parks & Recreation Urban Forestry — Title 11, Trees Fee Schedule, effective July 1, 2025 (Planting and Establishment Fee in Lieu: $712.00 per on-site tree)",
+      "source_url": "https://www.portland.gov/trees/documents/fy-2025-26-trees-fee-schedule/download",
+      "source_retrieved": "2026-08-07"
+    }
+  ],
+  "classCostKeys": {
+    "large_shade": "tree_large_shade_installed",
+    "medium_shade": "tree_medium_shade_installed",
+    "small_ornamental": "tree_small_ornamental_installed"
+  },
+  "perTreeItemKeys": [],
+  "plantingClasses": [
+    {
+      "key": "large_shade",
+      "label": "Large shade",
+      "crownRadiusM": 7.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 7–9 m",
+      "radiusStatus": "unverified"
+    },
+    {
+      "key": "medium_shade",
+      "label": "Medium shade",
+      "crownRadiusM": 5.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 5–6 m",
+      "radiusStatus": "unverified"
+    },
+    {
+      "key": "small_ornamental",
+      "label": "Small ornamental",
+      "crownRadiusM": 3.5,
+      "maturityYears": 15,
+      "radiusSource": "UNVERIFIED — build spec §4.6 nominal range 3–4 m",
+      "radiusStatus": "unverified"
+    }
+  ],
+  "_radius_note": "Crown radii remain nominal planting-class figures carried from the build spec, NOT a cited species list, and stay marked unverified. Costs are now cited; radii are not. Those are separate claims and only one of them has been resolved."
+}

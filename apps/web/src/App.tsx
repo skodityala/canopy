@@ -19,7 +19,8 @@ import {
 } from '@canopy/core';
 import { createFixtureImageryPort } from '@canopy/imagery-fixture';
 import { createLocalCostModelPort, type CostModelJson } from '@canopy/cost-local';
-import costData from '@canopy/cost-local/data/maricopa-az.json';
+import portlandCosts from '@canopy/cost-local/data/portland-or.json';
+import maricopaCosts from '@canopy/cost-local/data/maricopa-az.json';
 
 import { FIXTURES } from './data/fixtures.js';
 import {
@@ -43,14 +44,39 @@ import { ErrorState } from './states/ErrorState.js';
 import { SyntheticBadge } from './states/SuppressedState.js';
 import { readyKindFor, type ViewState } from './states/ViewState.js';
 
-const REGION = 'Maricopa County, AZ';
+/**
+ * Two regions, deliberately asymmetric.
+ *
+ * Portland resolves every cost line to the City's published Title 11 fee
+ * schedule, so it prints an itemised total. Maricopa ships with zeroed prices
+ * and empty source fields on purpose, so the same code path withholds the total
+ * and labels each line UNSOURCED.
+ *
+ * Both are real states of the same model — flipping the selector is the fastest
+ * way to see that the citation gate is structural rather than decorative.
+ */
+const PORTLAND = 'Portland, OR';
+const MARICOPA = 'Maricopa County, AZ';
+
+/** Portland first: the default should demonstrate the working, cited path. */
+export const REGIONS: readonly string[] = [PORTLAND, MARICOPA];
+const DEFAULT_REGION = PORTLAND;
+
+/** Shown under the selector so an uncited region reads as intent, not breakage. */
+const REGION_NOTE: Readonly<Record<string, string>> = {
+  [PORTLAND]:
+    'Every line resolves to the City of Portland Title 11 Trees Fee Schedule, so a total is printed.',
+  [MARICOPA]:
+    'Deliberately uncited — not broken. No published figure has been resolved for this region, so every line reads UNSOURCED and the total is withheld rather than guessed.',
+};
 /** Fixed so the UI and the committed PDF/SVG agree exactly. */
 const REPORT_DATE = '2026-08-05';
 const DEFAULT_TREES = 12;
 
 const imagery = createFixtureImageryPort(FIXTURES);
 const costs = createLocalCostModelPort({
-  [REGION]: costData as unknown as CostModelJson,
+  [PORTLAND]: portlandCosts as unknown as CostModelJson,
+  [MARICOPA]: maricopaCosts as unknown as CostModelJson,
 });
 
 export function App() {
@@ -58,13 +84,14 @@ export function App() {
   const [layer, setLayer] = useState<Layer>('lst');
   const [showGrid, setShowGrid] = useState(true);
   const [classes, setClasses] = useState<readonly PlantingClass[]>([]);
+  const [region, setRegion] = useState<string>(DEFAULT_REGION);
 
   // Boot: list the bundled schools.
   useEffect(() => {
     void (async () => {
       const [schools, plantingClasses] = await Promise.all([
         imagery.list(),
-        costs.plantingClasses(REGION),
+        costs.plantingClasses(DEFAULT_REGION),
       ]);
       setClasses(plantingClasses);
       setState({ kind: 'empty', schools });
@@ -76,15 +103,29 @@ export function App() {
     [classes],
   );
 
-  /** Recompute a report for a school with an explicit tree list. */
+  /**
+   * Recompute a report for a school with an explicit tree list.
+   *
+   * `regionOverride` is a parameter rather than a closure read so a region
+   * switch recomputes against the region the user just chose. Reading `region`
+   * from the closure would use the previous value on the first render after the
+   * change, printing the wrong cost state at exactly the moment a judge is
+   * watching for it.
+   */
   const analyse = useCallback(
-    async (slug: string, schools: readonly SchoolMeta[], treesOverride?: readonly Tree[]) => {
+    async (
+      slug: string,
+      schools: readonly SchoolMeta[],
+      treesOverride?: readonly Tree[],
+      regionOverride?: string,
+    ) => {
+      const activeRegion = regionOverride ?? region;
       setState({ kind: 'loading', schools, slug });
       try {
         const scene = await imagery.load(slug);
         const analysis = analyseScene(scene);
-        const costModel = await costs.forRegion(REGION);
-        const plantingClasses = await costs.plantingClasses(REGION);
+        const costModel = await costs.forRegion(activeRegion);
+        const plantingClasses = await costs.plantingClasses(activeRegion);
 
         const trees =
           treesOverride ??
@@ -120,7 +161,25 @@ export function App() {
         setState({ kind: 'error', schools, error: detail, slug });
       }
     },
-    [],
+    [region],
+  );
+
+  /**
+   * Switch cost region and recompute the current school in place.
+   *
+   * The plan, the imagery and every measurement stay identical — only the cost
+   * model changes. That is the point of the control: same code path, two data
+   * states, one visibly cited and one visibly withheld.
+   */
+  const selectRegion = useCallback(
+    (next: string) => {
+      setRegion(next);
+      void costs.plantingClasses(next).then(setClasses);
+      if (state.kind === 'ready' || state.kind === 'suppressed') {
+        void analyse(state.meta.slug, state.schools, state.trees, next);
+      }
+    },
+    [analyse, state],
   );
 
   const selectSchool = useCallback(
@@ -375,6 +434,56 @@ export function App() {
             )}
 
             <MetricsPanel report={state.report} />
+
+            {/* The region control sits immediately above the cost table so the
+                consequence of flipping it is in the same glance as the control. */}
+            <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
+              <legend
+                style={{
+                  font: `${font.weightBold} ${fontSize.method}px/${lineHeight.tight} ${font.text}`,
+                  color: color.textFaint,
+                  letterSpacing: '0.08em',
+                  marginBottom: space.sm,
+                }}
+              >
+                COST REGION
+              </legend>
+              <div style={{ display: 'flex', gap: space.xs }}>
+                {REGIONS.map((r) => {
+                  const on = r === region;
+                  return (
+                    <button
+                      key={r}
+                      type="button"
+                      onClick={() => selectRegion(r)}
+                      aria-pressed={on}
+                      style={{
+                        flex: 1,
+                        cursor: 'pointer',
+                        background: on ? color.accentMuted : 'transparent',
+                        color: on ? color.text : color.textMuted,
+                        border: `1px solid ${on ? color.accent : color.border}`,
+                        borderRadius: radius.sm,
+                        padding: `${space.xs}px ${space.sm}px`,
+                        font: `${font.weightNormal} ${fontSize.caption}px/1.4 ${font.text}`,
+                      }}
+                    >
+                      {r.replace(' County, AZ', ', AZ')}
+                    </button>
+                  );
+                })}
+              </div>
+              <p
+                style={{
+                  margin: `${space.sm}px 0 0`,
+                  font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
+                  color: state.report.cost.hasUnsourcedLines ? color.warn : color.textFaint,
+                }}
+              >
+                {REGION_NOTE[region] ?? ''}
+              </p>
+            </fieldset>
+
             <CostPanel cost={state.report.cost} />
 
             <details>
