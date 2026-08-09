@@ -284,6 +284,47 @@ describe('validateFit', () => {
   });
 });
 
+describe('degenerate training folds', () => {
+  /**
+   * Covers the defensive path where a training fold is itself degenerate.
+   *
+   * If every training sample shares one x value, olsFit has no variance to work
+   * with and returns a NaN slope. The fold must then yield NaN rather than
+   * predicting with a non-finite coefficient — a NaN prediction would poison the
+   * pooled R² silently.
+   */
+  it('yields NaN when a training fold has zero variance in x', () => {
+    // x is constant everywhere, so every training subset is degenerate.
+    const samples: SpatialSample[] = [];
+    for (let row = 0; row < 12; row++) {
+      for (let col = 0; col < 12; col++) {
+        samples.push({ x: 0.25, y: 40 + (col % 3), col, row });
+      }
+    }
+
+    const spatial = spatialBlockCv(samples, 4, 4);
+    const naive = randomFoldCv(samples, 4, 5);
+
+    // No fold could fit, so nothing was predicted and R² is undefined.
+    expect(Number.isNaN(spatial.r2)).toBe(true);
+    expect(Number.isNaN(naive.r2)).toBe(true);
+    // Every per-fold value is NaN too — not 0, which would imply a real result.
+    for (const r of spatial.perFoldR2) expect(Number.isNaN(r)).toBe(true);
+  });
+
+  it('validateFit reports NaN residual autocorrelation when the fit is degenerate', () => {
+    const samples: SpatialSample[] = [];
+    for (let row = 0; row < 10; row++) {
+      for (let col = 0; col < 10; col++) {
+        samples.push({ x: 0.3, y: 41, col, row });
+      }
+    }
+    const report = validateFit(samples);
+    // A constant response has no residual variance, so Moran's I is undefined.
+    expect(Number.isNaN(report.moransI)).toBe(true);
+  });
+});
+
 describe('degenerate input', () => {
   it('returns NaN rather than crashing on too few samples', () => {
     const s: SpatialSample[] = [{ x: 0.1, y: 40, col: 0, row: 0 }];

@@ -383,14 +383,18 @@ export function validateFit(
   const spatial = spatialBlockCv(samples, blockSizeCells, kFolds);
 
   // In-sample residuals, for the autocorrelation diagnostic.
+  //
+  // No non-finite guard on the slope here: `finiteOnly` has already dropped
+  // every unusable sample, and `moransI` independently returns NaN when the
+  // residuals have no variance. A defensive branch would be unreachable, and
+  // unreachable code is deleted rather than covered by a test no caller can
+  // trigger — see docs/DECISIONS.md ADR-16.
   const clean = finiteOnly(samples);
   const fit = olsFit(
     clean.map((s) => s.x),
     clean.map((s) => s.y),
   );
-  const residuals = Number.isFinite(fit.slope)
-    ? clean.map((s) => s.y - (fit.intercept + fit.slope * s.x))
-    : clean.map(() => Number.NaN);
+  const residuals = clean.map((s) => s.y - (fit.intercept + fit.slope * s.x));
 
   return {
     naive,
