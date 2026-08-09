@@ -13,6 +13,7 @@ export * from './raster/yardCells.js';
 export * from './geo/utm.js';
 
 export * from './model/regression.js';
+export * from './model/spatialcv.js';
 export * from './model/canopy.js';
 export * from './model/prediction.js';
 export * from './model/cost.js';
