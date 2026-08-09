@@ -1,8 +1,8 @@
 /**
  * The application shell. Presentation only — no math lives in this layer.
  *
- * Every computed quantity comes from @canopy/core; this file's job is to move a
- * ViewState through the five variants and hand each one to the right component.
+ * Every computed quantity comes from @canopy/core; this file moves a ViewState
+ * through its five variants and hands each to the right component.
  */
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -23,22 +23,13 @@ import portlandCosts from '@canopy/cost-local/data/portland-or.json';
 import maricopaCosts from '@canopy/cost-local/data/maricopa-az.json';
 
 import { FIXTURES } from './data/fixtures.js';
-import {
-  color,
-  font,
-  fontSize,
-  lineHeight,
-  lstColor,
-  ndviColor,
-  radius,
-  shadow,
-  space,
-  z,
-} from './design/tokens.js';
+import { color, fontSize, lstColor, ndviColor } from './design/tokens.js';
 import { MapView, type Layer } from './map/MapView.js';
 import { SchoolPicker } from './panels/SchoolPicker.js';
 import { MetricsPanel } from './panels/MetricsPanel.js';
 import { CostPanel } from './panels/CostPanel.js';
+import { RegressionPanel } from './panels/RegressionPanel.js';
+import { DecisionTrace } from './panels/DecisionTrace.js';
 import { EmptyState, LoadingState } from './states/EmptyAndLoading.js';
 import { ErrorState } from './states/ErrorState.js';
 import { SyntheticBadge } from './states/SuppressedState.js';
@@ -48,12 +39,12 @@ import { readyKindFor, type ViewState } from './states/ViewState.js';
  * Two regions, deliberately asymmetric.
  *
  * Portland resolves every cost line to the City's published Title 11 fee
- * schedule, so it prints an itemised total. Maricopa ships with zeroed prices
- * and empty source fields on purpose, so the same code path withholds the total
- * and labels each line UNSOURCED.
+ * schedule, so it prints an itemised total. Maricopa ships with zeroed prices and
+ * empty source fields on purpose, so the same code path withholds the total and
+ * labels each line UNSOURCED.
  *
- * Both are real states of the same model — flipping the selector is the fastest
- * way to see that the citation gate is structural rather than decorative.
+ * Flipping the selector is the fastest way to see that the citation gate is
+ * structural rather than decorative.
  */
 const PORTLAND = 'Portland, OR';
 const MARICOPA = 'Maricopa County, AZ';
@@ -69,6 +60,7 @@ const REGION_NOTE: Readonly<Record<string, string>> = {
   [MARICOPA]:
     'Deliberately uncited — not broken. No published figure has been resolved for this region, so every line reads UNSOURCED and the total is withheld rather than guessed.',
 };
+
 /** Fixed so the UI and the committed PDF/SVG agree exactly. */
 const REPORT_DATE = '2026-08-05';
 const DEFAULT_TREES = 12;
@@ -86,7 +78,6 @@ export function App() {
   const [classes, setClasses] = useState<readonly PlantingClass[]>([]);
   const [region, setRegion] = useState<string>(DEFAULT_REGION);
 
-  // Boot: list the bundled schools.
   useEffect(() => {
     void (async () => {
       const [schools, plantingClasses] = await Promise.all([
@@ -106,11 +97,10 @@ export function App() {
   /**
    * Recompute a report for a school with an explicit tree list.
    *
-   * `regionOverride` is a parameter rather than a closure read so a region
-   * switch recomputes against the region the user just chose. Reading `region`
-   * from the closure would use the previous value on the first render after the
-   * change, printing the wrong cost state at exactly the moment a judge is
-   * watching for it.
+   * `regionOverride` is a parameter rather than a closure read so a region switch
+   * recomputes against the region the user just chose. Reading `region` from the
+   * closure would use the previous value on the first render after the change,
+   * printing the wrong cost state at exactly the moment someone is watching.
    */
   const analyse = useCallback(
     async (
@@ -164,13 +154,12 @@ export function App() {
     [region],
   );
 
-  /**
-   * Switch cost region and recompute the current school in place.
-   *
-   * The plan, the imagery and every measurement stay identical — only the cost
-   * model changes. That is the point of the control: same code path, two data
-   * states, one visibly cited and one visibly withheld.
-   */
+  const selectSchool = useCallback(
+    (slug: string) => void analyse(slug, state.schools),
+    [analyse, state.schools],
+  );
+
+  /** Switch cost region and recompute in place. Only the cost model changes. */
   const selectRegion = useCallback(
     (next: string) => {
       setRegion(next);
@@ -182,12 +171,6 @@ export function App() {
     [analyse, state],
   );
 
-  const selectSchool = useCallback(
-    (slug: string) => void analyse(slug, state.schools),
-    [analyse, state.schools],
-  );
-
-  /** Add a tree where the user clicked, then recompute. */
   const placeTree = useCallback(
     (x: number, y: number) => {
       if (state.kind !== 'ready' && state.kind !== 'suppressed') return;
@@ -205,13 +188,23 @@ export function App() {
     [analyse, state],
   );
 
+  const removeLastTree = useCallback(() => {
+    if (state.kind !== 'ready' && state.kind !== 'suppressed') return;
+    void analyse(state.meta.slug, state.schools, state.trees.slice(0, -1));
+  }, [analyse, state]);
+
   const clearTrees = useCallback(() => {
     if (state.kind !== 'ready' && state.kind !== 'suppressed') return;
     void analyse(state.meta.slug, state.schools, []);
   }, [analyse, state]);
 
+  const resetPlan = useCallback(() => {
+    if (state.kind !== 'ready' && state.kind !== 'suppressed') return;
+    void analyse(state.meta.slug, state.schools);
+  }, [analyse, state]);
+
   /**
-   * Force the error state, so all five states are reachable in a live demo
+   * Force the error state so all five states are reachable in a live demo
    * without editing a fixture. Loads a slug that does not exist, which the
    * fixture adapter rejects with a typed FIXTURE_MALFORMED.
    */
@@ -220,324 +213,237 @@ export function App() {
     [analyse, state.schools],
   );
 
-  const selected =
-    state.kind === 'ready' || state.kind === 'suppressed'
-      ? state.meta.slug
-      : state.kind === 'loading' || state.kind === 'error'
-        ? state.slug
-        : null;
+  const hasPlan = state.kind === 'ready' || state.kind === 'suppressed';
+
+  const selected = hasPlan
+    ? state.meta.slug
+    : state.kind === 'loading' || state.kind === 'error'
+      ? state.slug
+      : null;
 
   const schoolName =
     state.schools.find((s) => s.slug === selected)?.name ?? selected ?? 'this schoolyard';
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(230px, 260px) 1fr minmax(330px, 380px)',
-        height: '100%',
-        background: color.bg,
-      }}
-    >
-      {/* ── Left: picker + layer controls. Quiet by design. */}
-      <aside
-        style={{
-          borderRight: `1px solid ${color.border}`,
-          padding: space.lg,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: space.xl,
-          overflowY: 'auto',
-          zIndex: z.panel,
-        }}
-      >
-        <header>
-          <div
-            style={{
-              font: `${font.weightBold} ${fontSize.subhead}px/${lineHeight.tight} ${font.text}`,
-              color: color.accent,
-              letterSpacing: '-0.01em',
-            }}
-          >
-            🌳 Canopy
-          </div>
-          <div
-            style={{
-              font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
-              color: color.textFaint,
-              marginTop: 2,
-            }}
-          >
-            Schoolyard shade plans from satellite imagery
-          </div>
-        </header>
+    <>
+      <a className="skip-link" href="#measurements">
+        Skip to measurements
+      </a>
 
-        <SchoolPicker schools={state.schools} selected={selected} onSelect={selectSchool} />
+      <div className="app">
+        {/* ── Left rail: picker and view controls. Quiet by design. */}
+        <aside className="rail rail--left no-print" aria-label="Controls">
+          <header>
+            <div style={{ fontSize: fontSize.subhead, fontWeight: 600, color: color.accent }}>
+              🌳 Canopy
+            </div>
+            <div style={{ fontSize: fontSize.method, color: color.textFaint, marginTop: 2 }}>
+              Schoolyard shade plans from satellite imagery
+            </div>
+          </header>
 
-        <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-          <legend
-            style={{
-              font: `${font.weightBold} ${fontSize.method}px/${lineHeight.tight} ${font.text}`,
-              color: color.textFaint,
-              letterSpacing: '0.08em',
-              marginBottom: space.sm,
-            }}
-          >
-            MAP LAYER
-          </legend>
-          <div style={{ display: 'flex', gap: space.xs }}>
-            {(['lst', 'ndvi'] as const).map((l) => (
-              <button
-                key={l}
-                type="button"
-                onClick={() => setLayer(l)}
-                aria-pressed={layer === l}
-                style={{
-                  flex: 1,
-                  cursor: 'pointer',
-                  background: layer === l ? color.accentMuted : 'transparent',
-                  color: layer === l ? color.text : color.textMuted,
-                  border: `1px solid ${layer === l ? color.accent : color.border}`,
-                  borderRadius: radius.sm,
-                  padding: `${space.xs}px ${space.sm}px`,
-                  font: `${font.weightNormal} ${fontSize.caption}px/1.4 ${font.text}`,
-                }}
-              >
-                {l === 'lst' ? 'Temperature' : 'Vegetation'}
-              </button>
-            ))}
+          <SchoolPicker schools={state.schools} selected={selected} onSelect={selectSchool} />
+
+          <fieldset className="segmented" style={{ display: 'block' }}>
+            <legend className="segmented__legend">MAP LAYER</legend>
+            <div style={{ display: 'flex', gap: 'var(--sp-xs)' }}>
+              {(['lst', 'ndvi'] as const).map((l) => (
+                <button
+                  key={l}
+                  type="button"
+                  className="seg"
+                  onClick={() => setLayer(l)}
+                  aria-pressed={layer === l}
+                >
+                  {l === 'lst' ? 'Temperature' : 'Vegetation'}
+                </button>
+              ))}
+            </div>
+
+            <label
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 'var(--sp-sm)',
+                marginTop: 'var(--sp-md)',
+                fontSize: fontSize.caption,
+                color: color.textMuted,
+                cursor: 'pointer',
+              }}
+            >
+              <input
+                type="checkbox"
+                checked={showGrid}
+                onChange={(e) => setShowGrid(e.target.checked)}
+              />
+              Show 100 m thermal grid
+            </label>
+          </fieldset>
+
+          <div style={{ display: 'grid', gap: 'var(--sp-sm)' }}>
+            <div className="section-label">PLAN</div>
+            <button type="button" className="btn" onClick={resetPlan} disabled={!hasPlan}>
+              Reset to suggested plan
+            </button>
+            <button type="button" className="btn" onClick={removeLastTree} disabled={!hasPlan}>
+              Remove last tree
+            </button>
+            <button type="button" className="btn" onClick={clearTrees} disabled={!hasPlan}>
+              Clear all trees
+            </button>
           </div>
 
-          <label
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: space.sm,
-              marginTop: space.md,
-              font: `${font.weightNormal} ${fontSize.caption}px/${lineHeight.normal} ${font.text}`,
-              color: color.textMuted,
-              cursor: 'pointer',
-            }}
-          >
-            <input
-              type="checkbox"
-              checked={showGrid}
-              onChange={(e) => setShowGrid(e.target.checked)}
-            />
-            Show 100 m thermal grid
-          </label>
-        </fieldset>
-
-        <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: space.sm }}>
-          <button
-            type="button"
-            onClick={clearTrees}
-            style={ghostButton}
-            disabled={state.kind !== 'ready' && state.kind !== 'suppressed'}
-          >
-            Clear trees
-          </button>
-          {/* Makes the error state demoable without breaking a fixture. */}
-          <button type="button" onClick={forceError} style={ghostButton}>
-            Simulate data failure
-          </button>
-          <div
-            style={{
-              font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
-              color: color.textFaint,
-            }}
-          >
-            Runs fully offline. No request leaves this machine.
+          <div style={{ marginTop: 'auto', display: 'grid', gap: 'var(--sp-sm)' }}>
+            <button
+              type="button"
+              className="btn btn--primary"
+              onClick={() => window.print()}
+              disabled={!hasPlan}
+            >
+              Print / save as PDF
+            </button>
+            {/* Makes the error state demoable without breaking a fixture. */}
+            <button type="button" className="btn" onClick={forceError}>
+              Simulate data failure
+            </button>
+            <div style={{ fontSize: fontSize.method, color: color.textFaint, lineHeight: 1.5 }}>
+              Runs fully offline. No request leaves this machine.
+            </div>
           </div>
-        </div>
-      </aside>
+        </aside>
 
-      {/* ── Centre: the map is the hero. */}
-      <main style={{ position: 'relative', padding: space.lg, minWidth: 0 }}>
-        {state.kind === 'empty' && (
-          <div style={{ height: '100%', display: 'flex' }}>
-            <EmptyState schools={state.schools} />
-          </div>
-        )}
+        {/* ── Centre: the map is the hero. */}
+        <main className="stage">
+          {state.kind === 'empty' && <EmptyState schools={state.schools} />}
 
-        {state.kind === 'loading' && (
-          <div style={{ height: '100%', display: 'grid', placeItems: 'center' }}>
-            <div style={{ width: 'min(560px, 100%)' }}>
+          {state.kind === 'loading' && (
+            <div style={{ margin: 'auto', width: 'min(560px, 100%)' }}>
               <LoadingState name={schoolName} />
             </div>
-          </div>
-        )}
+          )}
 
-        {state.kind === 'error' && (
-          <div style={{ height: '100%', display: 'flex' }}>
+          {state.kind === 'error' && (
             <ErrorState error={state.error} schoolName={schoolName} />
-          </div>
-        )}
+          )}
 
-        {(state.kind === 'ready' || state.kind === 'suppressed') && (
-          <div style={{ height: '100%', display: 'flex', flexDirection: 'column', gap: space.md }}>
-            <div style={{ flex: 1, minHeight: 0 }}>
-              <MapView
-                ndvi={state.analysis.ndvi}
-                lst={state.analysis.lst}
-                yard={state.meta.yard}
-                trees={state.trees}
-                crownRadii={crownRadii}
-                layer={layer}
-                onPlace={placeTree}
-                showThermalGrid={showGrid}
+          {hasPlan && (
+            <>
+              <div className="map-wrap">
+                <MapView
+                  ndvi={state.analysis.ndvi}
+                  lst={state.analysis.lst}
+                  yard={state.meta.yard}
+                  trees={state.trees}
+                  crownRadii={crownRadii}
+                  layer={layer}
+                  onPlace={placeTree}
+                  showThermalGrid={showGrid}
+                />
+              </div>
+              <Legend layer={layer} />
+              <p
+                className="no-print"
+                style={{ margin: 0, fontSize: fontSize.method, color: color.textFaint }}
+              >
+                Click the map to plant a tree — or focus it and use the arrow keys, then
+                Enter. Crowns are drawn at ~15-year mature radius.
+              </p>
+            </>
+          )}
+        </main>
+
+        {/* ── Right rail: the numbers, each with its method. */}
+        <aside className="rail rail--right" id="measurements" aria-label="Measurements">
+          {hasPlan && (
+            <>
+              <div>
+                <h1 style={{ margin: 0, fontSize: fontSize.subhead, fontWeight: 600 }}>
+                  {state.report.school.name}
+                </h1>
+                <div
+                  className="num"
+                  style={{ fontSize: fontSize.method, color: color.textFaint, marginTop: 2 }}
+                >
+                  {state.report.school.city}, {state.report.school.state} · yard{' '}
+                  {state.report.school.yardAreaM2.toLocaleString('en-US')} m²
+                </div>
+              </div>
+
+              {state.report.school.synthetic && (
+                <SyntheticBadge provenance="Pixel values are generated, not observed. Yard geometry is real OpenStreetMap data." />
+              )}
+
+              <MetricsPanel report={state.report} />
+
+              <DecisionTrace report={state.report} />
+
+              <RegressionPanel
+                analysis={state.analysis}
+                prediction={state.report.prediction}
               />
-            </div>
-            <Legend layer={layer} />
-          </div>
-        )}
-      </main>
 
-      {/* ── Right: the numbers, each with its method. */}
-      <aside
-        style={{
-          borderLeft: `1px solid ${color.border}`,
-          padding: space.lg,
-          overflowY: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: space.lg,
-          boxShadow: shadow.panel,
-          zIndex: z.panel,
-        }}
-      >
-        {(state.kind === 'ready' || state.kind === 'suppressed') && (
-          <>
-            <div>
-              <div
-                style={{
-                  font: `${font.weightBold} ${fontSize.subhead}px/${lineHeight.tight} ${font.text}`,
-                  color: color.text,
-                }}
-              >
-                {state.report.school.name}
-              </div>
-              <div
-                style={{
-                  font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.display}`,
-                  color: color.textFaint,
-                  marginTop: 2,
-                }}
-              >
-                {state.report.school.city}, {state.report.school.state} · yard{' '}
-                {state.report.school.yardAreaM2.toLocaleString('en-US')} m²
-              </div>
-            </div>
-
-            {state.report.school.synthetic && (
-              <SyntheticBadge provenance="Pixel values are generated, not observed. Yard geometry is real OpenStreetMap data." />
-            )}
-
-            <MetricsPanel report={state.report} />
-
-            {/* The region control sits immediately above the cost table so the
-                consequence of flipping it is in the same glance as the control. */}
-            <fieldset style={{ border: 'none', margin: 0, padding: 0 }}>
-              <legend
-                style={{
-                  font: `${font.weightBold} ${fontSize.method}px/${lineHeight.tight} ${font.text}`,
-                  color: color.textFaint,
-                  letterSpacing: '0.08em',
-                  marginBottom: space.sm,
-                }}
-              >
-                COST REGION
-              </legend>
-              <div style={{ display: 'flex', gap: space.xs }}>
-                {REGIONS.map((r) => {
-                  const on = r === region;
-                  return (
+              {/* The region control sits immediately above the cost table so the
+                  consequence of flipping it is in the same glance as the control. */}
+              <fieldset className="segmented no-print" style={{ display: 'block' }}>
+                <legend className="segmented__legend">COST REGION</legend>
+                <div style={{ display: 'flex', gap: 'var(--sp-xs)' }}>
+                  {REGIONS.map((r) => (
                     <button
                       key={r}
                       type="button"
+                      className="seg"
                       onClick={() => selectRegion(r)}
-                      aria-pressed={on}
-                      style={{
-                        flex: 1,
-                        cursor: 'pointer',
-                        background: on ? color.accentMuted : 'transparent',
-                        color: on ? color.text : color.textMuted,
-                        border: `1px solid ${on ? color.accent : color.border}`,
-                        borderRadius: radius.sm,
-                        padding: `${space.xs}px ${space.sm}px`,
-                        font: `${font.weightNormal} ${fontSize.caption}px/1.4 ${font.text}`,
-                      }}
+                      aria-pressed={r === region}
                     >
                       {r.replace(' County, AZ', ', AZ')}
                     </button>
-                  );
-                })}
-              </div>
-              <p
-                style={{
-                  margin: `${space.sm}px 0 0`,
-                  font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
-                  color: state.report.cost.hasUnsourcedLines ? color.warn : color.textFaint,
-                }}
-              >
-                {REGION_NOTE[region] ?? ''}
-              </p>
-            </fieldset>
+                  ))}
+                </div>
+                <p
+                  style={{
+                    margin: 'var(--sp-sm) 0 0',
+                    fontSize: fontSize.method,
+                    lineHeight: 1.5,
+                    color: state.report.cost.hasUnsourcedLines
+                      ? color.warn
+                      : color.textFaint,
+                  }}
+                >
+                  {REGION_NOTE[region] ?? ''}
+                </p>
+              </fieldset>
 
-            <CostPanel cost={state.report.cost} />
+              <CostPanel cost={state.report.cost} />
 
-            <details>
-              <summary
-                style={{
-                  cursor: 'pointer',
-                  font: `${font.weightBold} ${fontSize.method}px/${lineHeight.tight} ${font.text}`,
-                  color: color.textFaint,
-                  letterSpacing: '0.08em',
-                }}
-              >
-                LIMITATIONS ({state.report.limitations.length})
-              </summary>
-              <ul
-                style={{
-                  margin: `${space.sm}px 0 0`,
-                  paddingLeft: space.lg,
-                  font: `${font.weightNormal} ${fontSize.method}px/1.7 ${font.text}`,
-                  color: color.textMuted,
-                }}
-              >
-                {state.report.limitations.map((l) => (
-                  <li key={l.slice(0, 40)}>{l}</li>
-                ))}
-              </ul>
-            </details>
-          </>
-        )}
+              <details>
+                <summary>LIMITATIONS ({state.report.limitations.length})</summary>
+                <ul
+                  style={{
+                    margin: 'var(--sp-sm) 0 0',
+                    paddingLeft: 'var(--sp-lg)',
+                    fontSize: fontSize.method,
+                    color: color.textMuted,
+                    lineHeight: 1.7,
+                  }}
+                >
+                  {state.report.limitations.map((l) => (
+                    <li key={l.slice(0, 40)}>{l}</li>
+                  ))}
+                </ul>
+              </details>
+            </>
+          )}
 
-        {state.kind !== 'ready' && state.kind !== 'suppressed' && (
-          <div
-            style={{
-              font: `${font.weightNormal} ${fontSize.caption}px/${lineHeight.normal} ${font.text}`,
-              color: color.textFaint,
-            }}
-          >
-            Measurements appear here once a schoolyard is selected.
-          </div>
-        )}
-      </aside>
-    </div>
+          {!hasPlan && (
+            <div style={{ fontSize: fontSize.caption, color: color.textFaint }}>
+              Measurements appear here once a schoolyard is selected.
+            </div>
+          )}
+        </aside>
+      </div>
+    </>
   );
 }
-
-const ghostButton = {
-  cursor: 'pointer',
-  background: 'transparent',
-  color: color.textMuted,
-  border: `1px solid ${color.border}`,
-  borderRadius: radius.sm,
-  padding: `${space.sm}px ${space.md}px`,
-  font: `${font.weightNormal} ${fontSize.caption}px/1.4 ${font.text}`,
-  textAlign: 'left' as const,
-};
 
 /** Ramp legend. Values are labelled, never colour alone. §7.2 */
 function Legend({ layer }: { layer: Layer }) {
@@ -546,38 +452,27 @@ function Legend({ layer }: { layer: Layer }) {
       ? [20, 25, 30, 35, 40, 45, 50, 55]
       : [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7];
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: space.md }}>
+    <div className="legend">
       <span
         style={{
-          font: `${font.weightNormal} ${fontSize.method}px/1 ${font.text}`,
+          fontSize: fontSize.method,
           color: color.textFaint,
           whiteSpace: 'nowrap',
         }}
       >
         {layer === 'lst' ? 'Surface temp °C' : 'NDVI'}
       </span>
-      <div style={{ display: 'flex', flex: 1 }}>
+      <div className="legend__stops">
         {stops.map((v) => (
-          <div key={v} style={{ flex: 1, textAlign: 'center' }}>
+          <div key={v} className="legend__stop">
             <div
-              style={{
-                height: 8,
-                background: layer === 'lst' ? lstColor(v) : ndviColor(v),
-              }}
+              className="legend__swatch"
+              style={{ background: layer === 'lst' ? lstColor(v) : ndviColor(v) }}
             />
-            <div
-              style={{
-                font: `${font.weightNormal} ${fontSize.method}px/1.6 ${font.display}`,
-                color: color.textFaint,
-                fontVariantNumeric: 'tabular-nums',
-              }}
-            >
-              {v}
-            </div>
+            <div className="legend__value">{v}</div>
           </div>
         ))}
       </div>
     </div>
   );
 }
-

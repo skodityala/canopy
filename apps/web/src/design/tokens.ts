@@ -1,18 +1,34 @@
 /**
- * Design tokens — committed before the first component. §7.
+ * Design tokens. §7
+ *
+ * Committed before the first component, and the single source of truth for the
+ * app, the PDF, and the generated documentation images.
  *
  * Rules encoded here rather than left to discipline:
- *   - The map is the hero. Panels are quiet: low-chroma, recessive.
+ *   - The map is the hero. Panels are quiet: low chroma, recessive.
  *   - No purple gradient. No default shadcn spacing scale.
- *   - ONE temperature ramp (inferno family), used in the map, the PDF and the
- *     video. A separate green ramp for NDVI. Never the same ramp for two
- *     quantities.
+ *   - ONE temperature ramp (inferno family) shared by map, PDF and images.
+ *     A separate green ramp for NDVI. Never the same ramp for two quantities.
  *   - Colour-blind safe: colour never carries meaning alone. Every coded value
  *     also renders a number or a label.
  *   - Numbers use tabular figures so a live-updating ΔT does not jitter.
+ *
+ * CONTRAST IS MEASURED, NOT EYEBALLED. Every foreground below was checked with
+ * the WCAG 2.1 relative-luminance formula against all three surface colours,
+ * and three of them were CHANGED as a result:
+ *
+ *   textFaint  #7d746e → #918882   was 3.45:1 on raised, now 4.54:1
+ *   danger     #cf5b4a → #da6655   was 3.94:1 on raised, now 4.51:1
+ *   unknown    #6b625d → #918883   was 2.65:1 on raised, now 4.54:1
+ *
+ * textFaint mattered most: it carries every method label, which is the text the
+ * whole product is built to make legible. It was failing AA.
+ *
+ * The audit is a test — see apps/web/test/contrast.test.ts — so a future token
+ * change that breaks AA fails the build rather than shipping.
  */
 
-/** Spacing scale, in px. Deliberately not Tailwind's default rhythm. */
+/** Spacing scale, px. Deliberately not Tailwind's rhythm. */
 export const space = {
   xs: 3,
   sm: 6,
@@ -30,41 +46,52 @@ export const radius = {
 } as const;
 
 /**
- * Surfaces. A near-black slate with a faint warm cast — chosen so the inferno
+ * Surfaces. Near-black slate with a faint warm cast, chosen so the inferno
  * temperature ramp reads as heat against it rather than fighting a cool blue.
  */
 export const color = {
-  /** Deepest surface — the app background behind the map. */
+  /** Deepest surface — behind the map. */
   bg: '#12100f',
   /** Panel surface. */
   surface: '#1c1917',
-  /** Raised panel / hover. */
+  /** Raised panel / hover. The WORST case for contrast, so all ratios target it. */
   surfaceRaised: '#262220',
-  /** Hairline borders. */
+  /** Hairline borders. Decorative only — never the sole indicator of a control. */
   border: '#332e2b',
   borderStrong: '#4a433f',
+  /** Focus ring / active outline. Clears 3:1 as a UI component. */
+  borderFocus: '#8f8a86',
 
-  /** Primary text — not pure white; pure white on near-black vibrates. */
+  /** Primary text. Not pure white — pure white on near-black vibrates. 13.56:1 */
   text: '#f2ede9',
+  /** Secondary text. 6.07:1 */
   textMuted: '#a89f99',
-  /** For method labels and citations: legible, clearly secondary. */
-  textFaint: '#7d746e',
+  /** Method labels and citations. Legible, clearly secondary. 4.54:1 — was 3.45 */
+  textFaint: '#918882',
 
-  /** Single accent. Canopy green, used for actions and canopy quantities. */
+  /** Single accent. Canopy green, for actions and canopy quantities. 5.06:1 */
   accent: '#4ba36a',
   accentHover: '#5cb87c',
   accentMuted: '#2c5f40',
+  /** Accent wash for selected rows. */
+  accentWash: 'rgba(75,163,106,0.13)',
 
-  /** Status colours, each paired with an icon or label in use. */
+  /** Status. Each is paired with an icon or label in use, never colour alone. */
   warn: '#d99a2b',
-  danger: '#cf5b4a',
-  /** Suppressed / unknown — deliberately grey, never a temperature colour. */
-  unknown: '#6b625d',
+  warnWash: '#241a0c',
+  warnWashRaised: '#3a2a12',
+  danger: '#da6655',
+  dangerWash: '#241412',
+
+  /** Suppressed / unknown. Deliberately grey — never a temperature colour. 4.54:1 */
+  unknown: '#918883',
+  /** Skeleton fill for the loading state. */
+  skeleton: '#262220',
 } as const;
 
 /**
  * Land surface temperature ramp — perceptually uniform, inferno family.
- * Used identically in the map overlay, the PDF and the video.
+ * Used identically in the map overlay, the PDF, and the README images.
  */
 export const lstRamp = [
   '#000004',
@@ -126,12 +153,14 @@ export function ndviColor(value: number): string {
 
 /**
  * Type. One display face for numbers with tabular figures, one text face.
- * Two weights each — that is the whole type system.
+ * Two weights each — that is the whole type system. System stacks only: no
+ * downloaded fonts, so the app renders identically offline.
  */
 export const font = {
   /** Numbers, metrics, the ΔT readout. Tabular so digits do not shift width. */
-  display: "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace",
-  text: "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+  display:
+    "ui-monospace, 'SF Mono', SFMono-Regular, 'IBM Plex Mono', Menlo, Consolas, monospace",
+  text: "system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
   weightNormal: 400,
   weightBold: 600,
 } as const;
@@ -160,7 +189,7 @@ export const shadow = {
 } as const;
 
 export const motion = {
-  /** Number transitions. Long enough to read as a change, short enough to feel live. */
+  /** Number transitions. Long enough to read as change, short enough to feel live. */
   metric: '220ms cubic-bezier(0.22, 0.61, 0.36, 1)',
   panel: '160ms ease-out',
 } as const;
@@ -173,3 +202,6 @@ export const z = {
   modal: 40,
   toast: 50,
 } as const;
+
+/** Breakpoint at which the three-column layout collapses to one. */
+export const breakpoint = { stack: 1080 } as const;

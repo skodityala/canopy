@@ -1,45 +1,41 @@
 /**
- * <Measured> — the only sanctioned way to put a number on screen. §7, proof #2.
+ * <Measured> — the only sanctioned way to put a number on screen. §7, proof #2
  *
  * `method` is a REQUIRED prop. There is no default and no optional variant, so
  * rendering a quantity without stating how it was measured is a type error
- * rather than an oversight. That is proof-layer item #2 enforced by the
- * compiler instead of by discipline.
+ * rather than an oversight.
  *
  * It also handles the unknown case properly: pass `value={null}` and it renders
  * an explicit "not measurable" state with the reason, never a zero.
  */
 
 import type { CSSProperties, ReactNode } from 'react';
-import { color, font, fontSize, lineHeight, space } from '../design/tokens.js';
+import { color, font, fontSize } from '../design/tokens.js';
 
 export interface MeasuredProps {
   /** What this quantity is, e.g. "Recess yard surface temperature". */
   label: string;
   /**
-   * The measured value. `null` means not measurable — the component then
-   * requires `unknownReason` and renders the refusal instead of a figure.
+   * The measured value. `null` means not measurable — the component then renders
+   * the refusal with its reason instead of a figure.
    */
   value: number | null;
   /**
-   * How this number was produced. REQUIRED. Appears directly beneath the
-   * figure, in the same component, so the two cannot be separated in layout.
+   * How this number was produced. REQUIRED. Rendered inside the same component
+   * as the figure, so the two cannot be separated by a layout change.
    */
   method: string;
-  unit?: string;
-  /** Decimal places. */
-  precision?: number;
+  unit?: string | undefined;
+  precision?: number | undefined;
   /** Explicit sign, for deltas. */
-  signed?: boolean;
-  /** 95% interval, rendered as "95% CI a … b". */
+  signed?: boolean | undefined;
   ci95?: readonly [number, number] | undefined;
   /** A caveat shown prominently, e.g. a weak-fit flag. */
   caveat?: string | undefined;
   /** Required when `value` is null: why the number is withheld. */
   unknownReason?: string | undefined;
-  /** Visual weight. 'hero' is the single largest number in the panel. */
-  size?: 'hero' | 'metric' | 'inline';
-  /** Colour swatch shown beside the label — must be paired with the number. */
+  size?: 'hero' | 'metric' | 'inline' | undefined;
+  /** Colour swatch beside the label — always paired with the number itself. */
   swatch?: string | undefined;
   children?: ReactNode;
 }
@@ -71,76 +67,45 @@ export function Measured({
   const figureSize =
     size === 'hero' ? fontSize.hero : size === 'metric' ? fontSize.metric : fontSize.body;
 
-  const wrap: CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: space.xs,
-  };
-
-  const labelStyle: CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: space.sm,
-    font: `${font.weightNormal} ${fontSize.caption}px/${lineHeight.normal} ${font.text}`,
-    color: color.textMuted,
-    letterSpacing: '0.02em',
-  };
-
   const figureStyle: CSSProperties = {
-    // Tabular figures: a live-updating ΔT must not jitter as digits change.
-    fontVariantNumeric: 'tabular-nums',
-    fontFeatureSettings: '"tnum" 1',
-    font: `${font.weightBold} ${figureSize}px/${lineHeight.tight} ${font.display}`,
+    fontSize: figureSize,
     color: isUnknown ? color.unknown : color.text,
-    display: 'flex',
-    alignItems: 'baseline',
-    gap: space.xs,
-  };
-
-  const methodStyle: CSSProperties = {
-    font: `${font.weightNormal} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
-    color: color.textFaint,
-    maxWidth: '46ch',
+    fontFamily: font.display,
   };
 
   return (
-    <div style={wrap}>
-      <div style={labelStyle}>
+    <div className="measured">
+      <div className="measured__label">
         {swatch !== undefined && (
-          <span
-            aria-hidden="true"
-            style={{
-              width: 9,
-              height: 9,
-              borderRadius: 2,
-              background: swatch,
-              flex: '0 0 auto',
-            }}
-          />
+          <span aria-hidden="true" className="swatch" style={{ background: swatch }} />
         )}
         {label}
       </div>
 
       {isUnknown ? (
         <>
-          <div style={{ ...figureStyle, fontSize: Math.round(figureSize * 0.62) }}>
+          <div
+            className="measured__value num"
+            style={{ ...figureStyle, fontSize: Math.round(figureSize * 0.62) }}
+          >
             not measurable
           </div>
           {unknownReason !== undefined && (
-            <div style={{ ...methodStyle, color: color.warn, maxWidth: '52ch' }}>
+            <div className="measured__method" style={{ color: color.warn, maxWidth: '52ch' }}>
               {unknownReason}
             </div>
           )}
         </>
       ) : (
         <>
-          <div style={figureStyle}>
+          <div className="measured__value num" style={figureStyle}>
             <span>{fmt(value as number, precision, signed)}</span>
             {unit !== undefined && (
               <span
                 style={{
-                  font: `${font.weightNormal} ${Math.round(figureSize * 0.44)}px/${lineHeight.tight} ${font.display}`,
+                  fontSize: Math.round(figureSize * 0.44),
                   color: color.textMuted,
+                  fontWeight: font.weightNormal,
                 }}
               >
                 {unit}
@@ -150,11 +115,8 @@ export function Measured({
 
           {ci95 !== undefined && Number.isFinite(ci95[0]) && Number.isFinite(ci95[1]) && (
             <div
-              style={{
-                font: `${font.weightNormal} ${fontSize.caption}px/${lineHeight.normal} ${font.display}`,
-                color: color.textMuted,
-                fontVariantNumeric: 'tabular-nums',
-              }}
+              className="num"
+              style={{ fontSize: fontSize.caption, color: color.textMuted }}
             >
               95% CI {fmt(ci95[0], precision, signed)} … {fmt(ci95[1], precision, signed)}
             </div>
@@ -163,7 +125,8 @@ export function Measured({
           {caveat !== undefined && (
             <div
               style={{
-                font: `${font.weightBold} ${fontSize.method}px/${lineHeight.normal} ${font.text}`,
+                fontSize: fontSize.method,
+                fontWeight: font.weightBold,
                 color: color.warn,
               }}
             >
@@ -173,10 +136,9 @@ export function Measured({
         </>
       )}
 
-      {/* The method label is rendered unconditionally — including in the
-          unknown case, where the method is what proves the refusal is
-          principled rather than a missing feature. */}
-      <div style={methodStyle}>{method}</div>
+      {/* Rendered unconditionally — including in the unknown case, where the
+          method is what proves the refusal is principled rather than a gap. */}
+      <div className="measured__method">{method}</div>
       {children}
     </div>
   );
