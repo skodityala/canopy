@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800" role="img" aria-label="Canopy planting report">
+<rect width="1280" height="800" fill="#12100f"/>
+<text x="44" y="46" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="14" fill="#f2ede9" font-weight="600">FIVE STATES, ALL BUILT</text>
+<text x="44" y="66" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">The median entry has a happy path and a spinner. Every state below is reachable in the live demo.</text>
+<rect x="44" y="96" width="385.33" height="290" fill="#1c1917" stroke="#7d746e" stroke-width="1"/>
+<text x="58" y="116" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e" font-weight="600">1  EMPTY</text>
+<line x1="58" y1="124" x2="415.33" y2="124" stroke="#332e2b" stroke-width="0.75"/>
+<text x="58" y="142" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="10" fill="#f2ede9" font-weight="600">Pick a schoolyard to measure</text>
+<text x="58" y="162" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#a89f99">Four schoolyards ship with this build and work with no network connection.</text>
+<text x="58" y="182.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">1.</text>
+<text x="74" y="182.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Choose a school from the list</text>
+<text x="58" y="202.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">2.</text>
+<text x="74" y="202.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Read measured canopy and yard temperature</text>
+<text x="58" y="222.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">3.</text>
+<text x="74" y="222.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Place trees; the prediction updates</text>
+<text x="58" y="242.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">4.</text>
+<text x="74" y="242.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Export the costed plan as a PDF</text>
+<text x="58" y="370" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">Says what to do — not just what is missing.</text>
+<rect x="447.33" y="96" width="385.33" height="290" fill="#1c1917" stroke="#7d746e" stroke-width="1"/>
+<text x="461.33" y="116" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e" font-weight="600">2  LOADING</text>
+<line x1="461.33" y1="124" x2="818.67" y2="124" stroke="#332e2b" stroke-width="0.75"/>
+<text x="461.33" y="142" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="9" fill="#a89f99">Analysing Phoenix…</text>
+<rect x="461.33" y="164" width="150.08" height="9" fill="#262220"/>
+<rect x="461.33" y="181" width="242.99" height="26" fill="#262220"/>
+<rect x="461.33" y="215" width="192.96" height="9" fill="#262220"/>
+<rect x="461.33" y="232" width="135.79" height="9" fill="#262220"/>
+<rect x="461.33" y="249" width="214.4" height="26" fill="#262220"/>
+<rect x="461.33" y="283" width="257.28" height="9" fill="#262220"/>
+<text x="461.33" y="304" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">Deriving NDVI at 10 m, resampling to the 100 m thermal grid, fitting LST ~ NDVI.</text>
+<text x="461.33" y="370" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">A skeleton of the layout, not a spinner over nothing.</text>
+<rect x="850.67" y="96" width="385.33" height="290" fill="#1c1917" stroke="#4ba36a" stroke-width="1"/>
+<text x="864.67" y="116" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#4ba36a" font-weight="600">3  READY</text>
+<line x1="864.67" y1="124" x2="1222" y2="124" stroke="#332e2b" stroke-width="0.75"/>
+<text x="864.67" y="142" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">CANOPY COVER</text>
+<text x="864.67" y="160" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="15" fill="#f2ede9" font-weight="600" style="font-variant-numeric:tabular-nums">9.0%  →  24.2%</text>
+<text x="864.67" y="184" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">12 trees placed</text>
+<text x="864.67" y="208" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">PREDICTED CHANGE</text>
+<text x="864.67" y="240" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="34" fill="#4ba36a" font-weight="600" style="font-variant-numeric:tabular-nums">-1.7</text>
+<text x="953.53" y="240" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="14" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="864.67" y="258" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">95% CI -1.8 … -1.6</text>
+<text x="864.67" y="274" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">R² = 0.73 · n = 400 px</text>
+<text x="864.67" y="370" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">Every figure carries its method beneath it.</text>
+<rect x="44" y="404" width="587" height="340" fill="#1c1917" stroke="#d99a2b" stroke-width="1"/>
+<text x="58" y="424" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#d99a2b" font-weight="600">4  SUPPRESSED  ★ THE MONEY STATE</text>
+<line x1="58" y1="432" x2="617" y2="432" stroke="#332e2b" stroke-width="0.75"/>
+<text x="58" y="450" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="10" fill="#f2ede9" font-weight="600">Dos Rios Elementary</text>
+<text x="58" y="472" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">PREDICTED TEMPERATURE CHANGE</text>
+<text x="58" y="508" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="34" fill="#d99a2b" font-weight="600" style="font-variant-numeric:tabular-nums">WITHHELD</text>
+<text x="58" y="530" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#d99a2b" font-weight="600">CLOUD COVER OVER THIS YARD</text>
+<text x="58" y="548" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#a89f99">Only 50.0% of this yard has cloud-free pixels (80% required). No temperature change is reported for this site.</text>
+<text x="58" y="568.5" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">Yard coverage 50% — below the 80% required.</text>
+<rect x="58" y="590.5" width="559" height="46" fill="#262220" stroke="#4ba36a" stroke-width="1"/>
+<text x="68" y="607.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#4ba36a" font-weight="600">✓  STILL REPORTED</text>
+<text x="68" y="622.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#a89f99">Canopy 11.6% → 26.4%, measured LST 42.6 °C, full costed plan.</text>
+<rect x="649" y="404" width="587" height="340" fill="#1c1917" stroke="#cf5b4a" stroke-width="1"/>
+<text x="663" y="424" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#cf5b4a" font-weight="600">5  ERROR</text>
+<line x1="663" y1="432" x2="1222" y2="432" stroke="#332e2b" stroke-width="0.75"/>
+<text x="663" y="450" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="9" fill="#cf5b4a" font-weight="600">▲  COULD NOT MEASURE THIS SCHOOLYARD</text>
+<text x="663" y="474" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9">Fixture at fixtures/schools/no-such-school could not be read: no such fixture in the committed bundle.</text>
+<text x="663" y="499.2" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#a89f99">Re-run `npm run fixtures` to regenerate the committed fixtures, then reload.</text>
+<rect x="663" y="527.7" width="159.5" height="20" fill="#12100f" stroke="#332e2b" stroke-width="1"/>
+<text x="673" y="541.7" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">CanopyError · FIXTURE_MALFORMED</text>
+<text x="663" y="561.7" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">Four error codes exist — INSUFFICIENT_COVERAGE, NO_THERMAL_OVERLAP, FIT_UNRELIABLE, FIXTURE_MALFORMED. Each maps to a readable sentence and a concrete</text>
+<text x="663" y="571.5" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e">remedy. None of them falls back to a default value.</text>
+<text x="663" y="728" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">A typed error beats a wrong number.</text>
+<text x="44" y="782" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">States 4 and 5 are reachable in the deployed demo — the cloud-occluded school is a committed fixture, and the error state has a control that triggers it. Neither is a mock-up.</text>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-label="Canopy planting report">
+<rect width="1280" height="760" fill="#12100f"/>
+<rect x="0" y="0" width="232" height="760" fill="#12100f" stroke="#332e2b" stroke-width="1"/>
+<line x1="232" y1="0" x2="232" y2="760" stroke="#332e2b" stroke-width="1"/>
+<text x="18" y="34" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="16" fill="#4ba36a" font-weight="600">🌳 Canopy</text>
+<text x="18" y="50" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Schoolyard shade plans from satellite imagery</text>
+<text x="18" y="84" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">SCHOOLYARD</text>
+<rect x="12" y="94" width="208" height="32" fill="#262220" stroke="#2c5f40" stroke-width="1"/>
+<text x="18" y="107" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#f2ede9" font-weight="600">Cactus Wren Elementary</text>
+<text x="18" y="119" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">Phoenix, AZ · 9,004 m²</text>
+<text x="18" y="143" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">Dos Rios Elementary</text>
+<text x="18" y="155" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">Phoenix, AZ · 8,998 m²</text>
+<text x="18" y="179" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">John Jacobs Elementary</text>
+<text x="18" y="191" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">Phoenix, AZ · 9,003 m²</text>
+<text x="18" y="215" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8.5" fill="#a89f99">Sunridge Elementary</text>
+<text x="18" y="227" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" style="font-variant-numeric:tabular-nums">Phoenix, AZ · 9,003 m²</text>
+<text x="18" y="262" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">MAP LAYER</text>
+<rect x="18" y="270" width="96" height="22" fill="#2c5f40" stroke="#4ba36a" stroke-width="1"/>
+<text x="66" y="285" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#f2ede9" text-anchor="middle">Temperature</text>
+<rect x="118" y="270" width="96" height="22" fill="none" stroke="#332e2b" stroke-width="1"/>
+<text x="166" y="285" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#a89f99" text-anchor="middle">Vegetation</text>
+<rect x="18" y="304" width="10" height="10" fill="#4ba36a" stroke="#4ba36a" stroke-width="1"/>
+<text x="34" y="313" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="8" fill="#a89f99">Show 100 m thermal grid</text>
+<text x="18" y="720" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">Runs fully offline.</text>
+<text x="18" y="732" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#7d746e">No request leaves this machine.</text>
+<rect x="250" y="18" width="640" height="690" fill="#12100f"/>
+<rect x="254.45" y="-78.76" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="528.79" y="-78.76" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="803.12" y="-78.76" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="254.45" y="195.58" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="528.79" y="195.58" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="803.12" y="195.58" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="254.45" y="469.92" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="528.79" y="469.92" width="275.04" height="275.04" fill="#ed6925"/>
+<rect x="803.12" y="469.92" width="275.04" height="275.04" fill="#ed6925"/>
+<line x1="250" y1="195.58" x2="890" y2="195.58" stroke="#f2ede9" stroke-width="0.6" opacity="0.22"/>
+<line x1="250" y1="469.92" x2="890" y2="469.92" stroke="#f2ede9" stroke-width="0.6" opacity="0.22"/>
+<line x1="528.79" y1="18" x2="528.79" y2="708" stroke="#f2ede9" stroke-width="0.6" opacity="0.22"/>
+<line x1="803.12" y1="18" x2="803.12" y2="708" stroke="#f2ede9" stroke-width="0.6" opacity="0.22"/>
+<path d="M459.4,234.4 L504.8,183.1 L509.3,182.6 L636.7,293.5 L670.3,323.4 L687.4,323.7 L683.6,527.0 L683.5,536.3 L681.6,540.5 L677.8,543.4 L452.6,541.2 Z" fill="none" stroke="#f2ede9" stroke-width="2"/>
+<circle cx="641.18" cy="520.78" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="520.78" r="2.1" fill="#5cb87c"/>
+<circle cx="641.18" cy="490.6" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="490.6" r="2.1" fill="#5cb87c"/>
+<circle cx="595.92" cy="520.78" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="595.92" cy="520.78" r="2.1" fill="#5cb87c"/>
+<circle cx="595.92" cy="490.6" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="595.92" cy="490.6" r="2.1" fill="#5cb87c"/>
+<circle cx="565.74" cy="520.78" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="565.74" cy="520.78" r="2.1" fill="#5cb87c"/>
+<circle cx="565.74" cy="490.6" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="565.74" cy="490.6" r="2.1" fill="#5cb87c"/>
+<circle cx="535.56" cy="520.78" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="535.56" cy="520.78" r="2.1" fill="#5cb87c"/>
+<circle cx="641.18" cy="460.42" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="460.42" r="2.1" fill="#5cb87c"/>
+<circle cx="535.56" cy="490.6" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="535.56" cy="490.6" r="2.1" fill="#5cb87c"/>
+<circle cx="641.18" cy="400.07" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="400.07" r="2.1" fill="#5cb87c"/>
+<circle cx="641.18" cy="369.89" r="20.58" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="369.89" r="2.1" fill="#5cb87c"/>
+<circle cx="641.18" cy="339.72" r="15.09" fill="rgba(75,163,106,0.34)" stroke="#4ba36a" stroke-width="1.3"/>
+<circle cx="641.18" cy="339.72" r="2.1" fill="#5cb87c"/>
+<text x="250" y="717" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">SURFACE TEMPERATURE °C</text>
+<rect x="250" y="722" width="45" height="7" fill="#000004"/>
+<text x="272.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">20</text>
+<rect x="295" y="722" width="45" height="7" fill="#1b0c41"/>
+<text x="317.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">25</text>
+<rect x="340" y="722" width="45" height="7" fill="#4a0c6b"/>
+<text x="362.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">30</text>
+<rect x="385" y="722" width="45" height="7" fill="#a52c60"/>
+<text x="407.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">35</text>
+<rect x="430" y="722" width="45" height="7" fill="#cf4446"/>
+<text x="452.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">40</text>
+<rect x="475" y="722" width="45" height="7" fill="#fb9b06"/>
+<text x="497.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">45</text>
+<rect x="520" y="722" width="45" height="7" fill="#f7d13d"/>
+<text x="542.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">50</text>
+<rect x="565" y="722" width="45" height="7" fill="#fcffa4"/>
+<text x="587.5" y="739" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7" fill="#7d746e" text-anchor="middle" style="font-variant-numeric:tabular-nums">55</text>
+<line x1="908" y1="0" x2="908" y2="760" stroke="#332e2b" stroke-width="1"/>
+<text x="926" y="34" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="14" fill="#f2ede9" font-weight="600">Cactus Wren Elementary</text>
+<text x="926" y="48" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#7d746e" style="font-variant-numeric:tabular-nums">Phoenix, AZ · yard 9,000 m²</text>
+<rect x="926" y="70" width="336" height="30" fill="#3a2a12" stroke="#d99a2b" stroke-width="1"/>
+<text x="934" y="82" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#d99a2b" font-weight="600">SYNTHETIC IMAGERY</text>
+<text x="934" y="93" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#a89f99">Generated pixels. Yard geometry is real OSM data.</text>
+<text x="926" y="114" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">CANOPY COVER NOW</text>
+<text x="926" y="140" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="24" fill="#f2ede9" font-weight="600" style="font-variant-numeric:tabular-nums">9.0</text>
+<text x="974.93" y="140" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="11" fill="#a89f99" style="font-variant-numeric:tabular-nums">%</text>
+<text x="1094" y="114" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">AFTER THIS PLAN</text>
+<text x="1094" y="140" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="24" fill="#4ba36a" font-weight="600" style="font-variant-numeric:tabular-nums">24.2</text>
+<text x="1157.9" y="140" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="11" fill="#a89f99" style="font-variant-numeric:tabular-nums">%</text>
+<text x="926" y="158" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">Sentinel-2 B8/B4 at 10 m · NDVI ≥ 0.66 classified as canopy · crown union 1,503 m² after 7.8%</text>
+<text x="926" y="166" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">measured overlap</text>
+<text x="926" y="186" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">RECESS YARD SURFACE TEMPERATURE</text>
+<text x="926" y="212" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="26" fill="#ed6925" font-weight="600" style="font-variant-numeric:tabular-nums">43.9</text>
+<text x="980" y="212" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="12" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="926" y="224" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">LANDSAT 9 B10, 2025-07-29, 10:42 local overpass · mean of 3 thermal pixels at 100 m native · peak</text>
+<text x="926" y="232" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">afternoon is higher</text>
+<text x="926" y="254" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#a89f99">PREDICTED CHANGE AFTER PLANTING</text>
+<text x="926" y="294" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="40" fill="#4ba36a" font-weight="600" style="font-variant-numeric:tabular-nums">-1.7</text>
+<text x="1012" y="294" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="17" fill="#a89f99" style="font-variant-numeric:tabular-nums">°C</text>
+<text x="926" y="309" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="8" fill="#a89f99" style="font-variant-numeric:tabular-nums">95% CI -1.8 … -1.6</text>
+<text x="926" y="321" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#7d746e">OLS LST ~ NDVI · R² = 0.73 · n = 400 px · associated change at ~15-year crown maturity</text>
+<text x="926" y="341" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7" fill="#7d746e" font-weight="600">COSTED PLAN</text>
+<text x="926" y="353" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#f2ede9">Large shade tree, 2&quot; caliper, installed</text>
+<text x="1262" y="353" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="932" y="363" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6" fill="#d99a2b">No resolvable source — excluded from the total.</text>
+<text x="926" y="374" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#f2ede9">Medium shade tree, 2&quot; caliper, installed</text>
+<text x="1262" y="374" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="932" y="384" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6" fill="#d99a2b">No resolvable source — excluded from the total.</text>
+<text x="926" y="395" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#f2ede9">Establishment watering, 3 years</text>
+<text x="1262" y="395" font-family="'IBM Plex Mono','SF Mono',Menlo,ui-monospace,monospace" font-size="7.5" fill="#d99a2b" text-anchor="end" style="font-variant-numeric:tabular-nums">UNSOURCED</text>
+<text x="932" y="405" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6" fill="#d99a2b">No resolvable source — excluded from the total.</text>
+<rect x="926" y="420" width="336" height="30" fill="#241a0c" stroke="#d99a2b" stroke-width="1"/>
+<text x="934" y="432" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="7.5" fill="#d99a2b" font-weight="600">TOTAL WITHHELD</text>
+<text x="934" y="443" font-family="Inter,system-ui,-apple-system,'Segoe UI',sans-serif" font-size="6.5" fill="#a89f99">cost not shown — one or more line items lack a cited sourc</text>
+</svg>

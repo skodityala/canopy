@@ -52,12 +52,16 @@ async function main(): Promise<void> {
   );
 }
 
-// Only write files when invoked as a script. The asset-drift guard imports
-// `renderReportSvg` from this module, and a top-level await here would rewrite
-// the very files that test is trying to compare against — masking staleness
-// instead of catching it.
-const invokedDirectly =
-  process.argv[1] !== undefined && process.argv[1].endsWith('write-assets.ts');
+// Write files only when this module is run as a CLI, never when it is imported.
+//
+// The asset-drift guard imports the render helpers from here; if writing ran on
+// import, it would rewrite the very files that test compares against — masking
+// staleness instead of catching it.
+//
+// An explicit env flag rather than an argv check: vite-node removes the script
+// path from process.argv entirely (argv is just [node, vite-node]), so every
+// argv-based guard silently evaluates to false and the CLI does nothing.
+const invokedDirectly = process.env.CANOPY_WRITE === '1';
 if (invokedDirectly) {
   await main();
 }

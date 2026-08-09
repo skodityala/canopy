@@ -91,13 +91,18 @@ export class SvgSurface implements Surface {
     return approximateTextWidth(s, style);
   }
 
-  /** The finished document. Deterministic for a given report. */
-  toSvg(): string {
+  /**
+   * The finished document. Deterministic for a given report.
+   *
+   * Defaults to the A4 page the PDF backend targets; pass explicit dimensions
+   * for the wider product images, which are not page-shaped.
+   */
+  toSvg(width = PAGE_WIDTH, height = PAGE_HEIGHT): string {
     return [
-      `<svg xmlns="http://www.w3.org/2000/svg" width="${PAGE_WIDTH}" height="${PAGE_HEIGHT}" ` +
-        `viewBox="0 0 ${PAGE_WIDTH} ${PAGE_HEIGHT}" role="img" ` +
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" ` +
+        `viewBox="0 0 ${width} ${height}" role="img" ` +
         `aria-label="Canopy planting report">`,
-      `<rect width="${PAGE_WIDTH}" height="${PAGE_HEIGHT}" fill="${this.background}"/>`,
+      `<rect width="${width}" height="${height}" fill="${this.background}"/>`,
       ...this.parts,
       '</svg>',
       '',
